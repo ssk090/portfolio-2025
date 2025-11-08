@@ -2,16 +2,14 @@
 
 import { Header } from "@/components/header"
 import { Item, SectionList } from "@/components/section-list"
-import { BlogSection } from "@/components/blog-section"
 import { LinksSection } from "@/components/links-section"
 import { motion } from "framer-motion"
 import { SkillsSection } from "@/components/skills-section"
-import { ProjectCard } from "@/components/project-card"
 
 const workItems: Item[] = [
   {
     title: "altir india private limited",
-    role: "software engineer",
+    role: "senior software engineer",
     location: "hyderabad, india",
     period: "april 2023 - present",
     description: [
