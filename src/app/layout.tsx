@@ -5,7 +5,6 @@ import { Navbar } from "../components/navbar"
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-geist-mono",
 })
 

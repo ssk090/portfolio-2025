@@ -32,7 +32,7 @@ function isBot(userAgent: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    const { sessionId } = await request.json()
+    const { sessionId, page } = await request.json()
 
     // Validate session ID format (should be UUID)
     if (!sessionId || typeof sessionId !== "string" || sessionId.length < 20) {
@@ -59,15 +59,34 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Store visited session ID to track unique visitors (no TTL = permanent)
+    // Extract request metadata
+    const ip = request.headers.get("x-forwarded-for") || "unknown"
+    const country = request.headers.get("x-vercel-ip-country") || request.headers.get("cf-ipcountry") || "unknown"
+    const referrer = request.headers.get("referer") || "direct"
+    const language = request.headers.get("accept-language") || "unknown"
+    const timestamp = Date.now()
+
+    // Create visitor data object
+    const visitorData = {
+      timestamp,
+      visited: true,
+      ip,
+      country,
+      userAgent,
+      referrer,
+      language,
+      page: page || "unknown",
+    }
+
+    // Store visited session ID with metadata (no TTL = permanent)
     const sessionKey = `visited_session:${sessionId}`
-    const isNewSession = await redis.set(sessionKey, JSON.stringify({ timestamp: Date.now(), visited: true }), { nx: true })
+    const isNewSession = await redis.set(sessionKey, JSON.stringify(visitorData), { nx: true })
 
     // Get total unique visitor count
     const visitedSessions = await redis.keys("visited_session:*")
     const totalCount = visitedSessions.length
 
-    console.info(`Visitor ${isNewSession !== null ? "NEW" : "RETURNING"}: ${sessionId}, Total: ${totalCount}`)
+    console.info(`Visitor ${isNewSession !== null ? "NEW" : "RETURNING"}: ${sessionId}, Country: ${country}, Page: ${page}, Total: ${totalCount}`)
 
     return NextResponse.json({ count: totalCount, isNewSession: isNewSession !== null, sessionId }, { status: 200 })
   } catch (error) {

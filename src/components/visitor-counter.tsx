@@ -19,11 +19,14 @@ export function VisitorCounter() {
                     crypto.randomUUID()
                 localStorage.setItem("visitor_session_id", sessionId)
 
+                // Get current page path
+                const page = typeof window !== "undefined" ? window.location.pathname : "unknown"
+
                 // Register session with tracking endpoint
                 const trackResponse = await fetch("/api/visitors/track", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ sessionId }),
+                    body: JSON.stringify({ sessionId, page }),
                 })
 
                 if (!trackResponse.ok) {
