@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
+import { VisitorCounter } from "@/components/visitor-counter"
 
 export function Navbar() {
   const router = useRouter()
@@ -57,6 +58,7 @@ export function Navbar() {
           <span className="text-accent">[p]</span> projects
         </Link>
       </div>
+      <VisitorCounter />
     </nav>
   )
 }
