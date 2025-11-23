@@ -7,20 +7,16 @@ const GitHubCalendar = dynamic(
     () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
     {
         ssr: false,
-        loading: () => <div className="h-[159px] w-full" />,
+        loading: () => <div className="w-full" />,
     }
 );
 
 function GithubCalender() {
-    const processContributions = useCallback((contributions: Activity[]) => {
-        return contributions.slice(91, 365);
-    }, []);
-
     return (
         <div className="flex justify-center my-8">
             <GitHubCalendar
                 username="ssk090"
-                transformData={processContributions}
+
             />
         </div>
     );
