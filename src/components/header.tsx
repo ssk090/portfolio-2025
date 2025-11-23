@@ -20,7 +20,7 @@ export function Header() {
         </div>
       </div>
       <p className="leading-relaxed animate-fade-in-up">
-        frontend developer with 4+ years of experience in designing, developing,
+        frontend developer with 5+ years of experience in designing, developing,
         and maintaining applications for startups and mncs. demonstrating
         consistent excellence in delivering customer focused solutions. skilled
         in modern javascript frameworks and libraries. if i&apos;m not coding,
