@@ -79,8 +79,11 @@ export function VisitorCounter() {
     return (
         <div className="flex items-center gap-2 text-sm text-gray-400">
             <Users className="w-4 h-4" />
-            <span>
+            <span className="hidden sm:inline">
                 {count} {count === 1 ? "total visitor" : "total visitors"}
+            </span>
+            <span className="sm:hidden">
+                {count}
             </span>
         </div>
     )
