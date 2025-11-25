@@ -23,6 +23,8 @@ const BOT_PATTERNS = [
   "curl",
   "wget",
   "go-http-client",
+  "vercel-screenshot",
+  "vercel-screenshot/1.0",
 ]
 
 function isBot(userAgent: string): boolean {
