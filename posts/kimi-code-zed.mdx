@@ -1,0 +1,153 @@
+---
+title: "How I Setup Kimi Code in Zed"
+description: "A step-by-step guide on configuring Kimi Code CLI as an AI assistant within the Zed editor for a seamless coding experience."
+date: "February 28, 2026"
+---
+
+I've been using [Zed](https://zed.dev/) as my primary editor for a while now, and one of the things I love about it is its flexibility in integrating external tools. Recently, I set up [Kimi Code](https://github.com/moonshot-ai/Kimi-code-cli) — a powerful AI coding assistant — directly within Zed. Here's how I did it and why you might want to do the same.
+
+## What is Kimi Code?
+
+Kimi Code is an open-source AI coding assistant CLI developed by Moonshot AI. It brings intelligent code completion, refactoring suggestions, and natural language programming capabilities right to your terminal. Think of it as your pair programmer that understands context and can help you write better code faster.
+
+## Why Integrate it with Zed?
+
+Zed has excellent support for external commands and terminal integration. By setting up Kimi Code in Zed, you get:
+
+- **Context-aware assistance**: Kimi Code can read your current file and provide relevant suggestions
+- **Seamless workflow**: No need to switch between your editor and terminal
+- **Keyboard-driven**: Everything stays within your editor's keybindings
+
+## Prerequisites
+
+Before we start, make sure you have:
+
+- [Zed](https://zed.dev/) installed
+- [uv](https://github.com/astral-sh/uv) installed (for running Kimi Code)
+- A Moonshot AI API key (get one from the [Moonshot AI console](https://platform.moonshot.cn/))
+
+## Step 1: Install Kimi Code CLI
+
+Install Kimi Code using uv:
+
+```bash
+uv tool install kimi-code-cli
+```
+
+Or with pip:
+
+```bash
+pip install kimi-code-cli
+```
+
+## Step 2: Configure Your API Key
+
+Set your Moonshot AI API key as an environment variable:
+
+```bash
+export MOONSHOT_API_KEY="your-api-key-here"
+```
+
+To make this permanent, add it to your shell configuration file (`~/.zshrc`, `~/.bashrc`, etc.).
+
+## Step 3: Set Up the Slash Command in Zed
+
+Zed allows you to define custom slash commands. Let's create one for Kimi Code.
+
+Open Zed's settings (`Cmd/Ctrl + ,`) and add the following to your `settings.json`:
+
+```json
+{
+  "assistant": {
+    "default_model": {
+      "provider": "moonshot",
+      "model": "kimi-latest"
+    }
+  },
+  "terminal": {
+    "shell": "system"
+  }
+}
+```
+
+## Step 4: Create a Custom Keybinding
+
+To make it even faster, let's add a keybinding to trigger Kimi Code. Open Zed's keymap settings (`Cmd/Ctrl + K`, then `Cmd/Ctrl + S`) and add:
+
+```json
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-k ctrl-i": "assistant::InlineAssist"
+    }
+  }
+]
+```
+
+## Step 5: Using Kimi Code in Zed
+
+Now that everything is set up, here's how to use it:
+
+### Method 1: Terminal Panel
+
+1. Open the terminal panel with `` Ctrl + ` ``
+2. Type `kimi` followed by your question or command
+3. Kimi will analyze your codebase and respond
+
+### Method 2: Inline Assistance
+
+1. Select some code in your editor
+2. Use your custom keybinding (`Ctrl + K Ctrl + I`)
+3. Type what you want Kimi to do with the selected code
+
+### Method 3: Command Palette
+
+1. Open the command palette (`Cmd/Ctrl + Shift + P`)
+2. Search for "assistant" commands
+3. Select the appropriate action
+
+## My Workflow
+
+Here's how I typically use Kimi Code in my daily workflow:
+
+**Code Review**: Before committing, I ask Kimi to review my changes:
+```
+kimi review this code for potential bugs and improvements
+```
+
+**Refactoring**: When I need to clean up messy code:
+```
+kimi refactor this to use more idiomatic patterns
+```
+
+**Documentation**: Writing docstrings and comments:
+```
+kimi add comprehensive documentation to this function
+```
+
+**Debugging**: When stuck on an error:
+```
+kimi explain this error and suggest fixes
+```
+
+## Tips for Best Results
+
+1. **Be specific**: The more context you provide, the better the suggestions
+2. **Use file references**: Kimi can read files, so mention specific files when relevant
+3. **Iterate**: Don't expect perfect results on the first try — refine your prompts
+4. **Review changes**: Always review AI-generated code before committing
+
+## Troubleshooting
+
+**Kimi not responding?** Check that your `MOONSHOT_API_KEY` is set correctly.
+
+**Slow responses?** Large files might take longer to process. Try selecting specific sections instead of entire files.
+
+**Context issues?** Make sure you're running Kimi from the correct project directory.
+
+## Conclusion
+
+Integrating Kimi Code into Zed has significantly improved my productivity. The combination of Zed's speed and Kimi Code's intelligence creates a powerful development environment. Give it a try and let me know how it works for you!
+
+Happy coding! 🚀
