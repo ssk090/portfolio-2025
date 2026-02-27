@@ -28,6 +28,12 @@ export function Navbar() {
         case "p":
           router.push("/projects")
           break
+        case "r":
+          window.open(
+            "https://drive.google.com/file/d/1fiuzOdnPUu4nW2KCst52PR4zBtwZygvd/view",
+            "_blank",
+          )
+          break
       }
     }
 
@@ -56,6 +62,14 @@ export function Navbar() {
           className="hover:text-accent transition-colors duration-200"
         >
           <span className="text-accent">[p]</span> projects
+        </Link>
+        <Link
+          href="https://drive.google.com/file/d/1fiuzOdnPUu4nW2KCst52PR4zBtwZygvd/view"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-accent transition-colors duration-200"
+        >
+          <span className="text-accent">[r]</span> resume
         </Link>
       </div>
       <VisitorCounter />

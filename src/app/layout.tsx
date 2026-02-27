@@ -14,11 +14,13 @@ export const metadata: Metadata = {
     default: "Hi, I'm Shivananda Sai.",
     template: "%s | Shivananda Sai",
   },
-  description: "Developer, cardist and maker of things.",
+  description:
+    "Senior Software Engineer specializing in React, Next.js, TypeScript, and Gen AI.",
   openGraph: {
     title: "Shivananda Sai",
-    description: "Developer, cardist and maker of things.",
-    url: "https://www.nexxel.dev",
+    description:
+      "Senior Software Engineer specializing in React, Next.js, TypeScript, and Gen AI.",
+    url: "https://shivanandasai.vercel.app",
     siteName: "Shivananda Sai",
     locale: "en_US",
     type: "website",
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Shivananda Sai",
     card: "summary_large_image",
-    creator: "@shiv6t9",
+    creator: "@imshiv6t9",
   },
 }
 

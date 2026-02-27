@@ -20,12 +20,13 @@ export function Header() {
         </div>
       </div>
       <p className="leading-relaxed animate-fade-in-up">
-        frontend developer with 5+ years of experience in designing, developing,
-        and maintaining applications for startups and mncs. demonstrating
-        consistent excellence in delivering customer focused solutions. skilled
-        in modern javascript frameworks and libraries. if i&apos;m not coding,
-        i&apos;m probably doing cardistry, watching movies or obsessing over
-        mechanical keyboards.
+        senior software engineer with 5+ years of experience specializing in
+        frontend development. currently working at altir, focused on building
+        scalable web applications using react, next.js, and typescript.
+        previously at infosys, where i optimized client dashboards and improved
+        performance by up to 60%. passionate about staying current with emerging
+        technologies including gen ai, and constantly learning through personal
+        projects.
       </p>
     </header>
   )

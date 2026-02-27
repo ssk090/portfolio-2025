@@ -27,7 +27,7 @@ const workItems: Item[] = [
     period: "nov 2020 - mar 2023",
     description: [
       "developed and maintained scalable web apps using react, angular, and typescript, improving performance and usability across client projects",
-      "delivered new features, fixed bugs, and integrated APIs in agile teams, boosting user experience by up to 60%",
+      "delivered new features, fixed bugs, and integrated apis in agile teams, boosting user experience by up to 60%",
       "enhanced ui reusability and increased unit test coverage from 65% to 85% while supporting deployments with spring boot, git, and mysql",
     ],
     href: "https://www.infosys.com/",
@@ -39,15 +39,26 @@ const projectItems = [
     title: "interview-prep-ai",
     role: "side project",
     description: [
-      "an ai-powered interview preparation tool built primarily with next.js, typescript, and gemini api",
+      "an ai-powered interview preparation tool built with next.js, typescript, and gemini api",
+      "helps users practice technical interviews with intelligent feedback",
     ],
     href: "https://interview-prep-ai-beta.vercel.app/",
+  },
+  {
+    title: "better-rag",
+    role: "side project",
+    description: [
+      "improved rag (retrieval augmented generation) implementation for better ai responses",
+      "built with modern ai/llm technologies for enhanced context understanding",
+    ],
+    href: "https://github.com/ssk090/better-rag",
   },
   {
     title: "shivflix",
     role: "side project",
     description: [
-      "A Netflix clone enhanced with IMDb-like features, built primarily using JavaScript",
+      "a netflix clone enhanced with imdb-like features",
+      "built primarily using javascript with modern ui/ux patterns",
     ],
     href: "https://shivflix.netlify.app/",
   },
@@ -97,7 +108,6 @@ export default function HomePage() {
           viewAllText="all projects"
         />
       </motion.div>
-      {/* <BlogSection /> */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
