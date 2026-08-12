@@ -10,9 +10,9 @@ const links = [
 
 export function LinksSection() {
   return (
-    <section className="animate-fade-in-up mt-4 pt-10 pb-16 border-t border-neutral-800">
-      <h2 className="text-2xl font-semibold mb-6 flex items-center text-white">
-        <span className="text-accent accent-glow mr-2">*</span> elsewhere
+    <section className="animate-fade-in-up">
+      <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
+        <span className="text-accent mr-2">*</span> links
       </h2>
       <div className="flex flex-wrap gap-4 text-sm">
         {links.map((link) => (

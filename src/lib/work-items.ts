@@ -2,48 +2,27 @@ import type { Item } from "@/components/section-list"
 
 export const workItems: Item[] = [
   {
-    title: "opencode",
-    role: "software engineer",
-    period: "feb 2026 - present",
-    description: "building the future of coding agents",
-    href: "https://opencode.ai",
+    title: "altir india private limited",
+    role: "senior software engineer",
+    location: "hyderabad, india",
+    period: "april 2023 - present",
+    description: [
+      "worked on a web application using react, typescript, and supporting libraries to fix bugs and develop new features, improving overall functionality, performance, and user experience",
+      "self-learned react native and delivered a cross-platform mobile app within 2 months and received client appreciations",
+      "worked closely with designers, backend developers, and testers to deliver clean, efficient, and reliable code on time",
+    ],
+    href: "https://www.altir.co/",
   },
   {
-    title: "supermemory",
-    role: "founding engineer",
-    period: "nov 2025 - feb 2026",
-    description: "built the best memory engine for ai agents",
-    href: "https://supermemory.ai",
-  },
-  {
-    title: "mocha",
-    role: "co-founder and cto",
-    period: "jul 2025 - oct 2025",
-    description: "built an ai native email client designed for speed and ease of use",
-    href: "https://mocha.email",
-  },
-  {
-    title: "ENS labs",
-    role: "software engineer",
-    period: "feb 2025 - jul 2025",
-    description:
-      "helped migrate ensjs to namechain and optimized ci for the manager app",
-    href: "https://ens.domains",
-  },
-  {
-    title: "leapflow",
-    role: "co-founder and cto",
-    period: "may 2024 - jun 2025",
-    description:
-      "headed engineering to develop ai agents that automate repetitive workflows in existing software",
-    href: "https://leapflow.tech",
-  },
-  {
-    title: "dimension",
-    role: "full-stack engineer",
-    period: "nov 2023 - jan 2024",
-    description:
-      "contributed to a large-scale t3 stack app. worked on real-time presence and chat features",
-    href: "https://dimension.dev",
+    title: "infosys limited",
+    role: "senior systems engineer",
+    location: "hyderabad, india",
+    period: "nov 2020 - mar 2023",
+    description: [
+      "developed and maintained scalable web apps using react, angular, and typescript, improving performance and usability across client projects",
+      "delivered new features, fixed bugs, and integrated apis in agile teams, boosting user experience by up to 60%",
+      "enhanced ui reusability and increased unit test coverage from 65% to 85% while supporting deployments with spring boot, git, and mysql",
+    ],
+    href: "https://www.infosys.com/",
   },
 ]

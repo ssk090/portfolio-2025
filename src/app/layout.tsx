@@ -5,7 +5,8 @@ import { Navbar } from "../components/navbar"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  display: "swap",
+  variable: "--font-jetbrains-mono",
 })
 
 export const metadata: Metadata = {

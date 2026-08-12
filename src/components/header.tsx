@@ -1,4 +1,5 @@
 import { ScrambleText } from "@/components/scramble-text"
+import { MapPin, Building2 } from "lucide-react"
 
 export function Header() {
   return (

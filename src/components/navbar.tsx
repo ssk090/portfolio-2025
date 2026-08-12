@@ -18,13 +18,7 @@ export function Navbar() {
         return
       }
 
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
-
-      const key = event.key.toLowerCase()
-
-      switch (key) {
+      switch (event.key.toLowerCase()) {
         case "h":
           router.push("/")
           break
@@ -52,20 +46,20 @@ export function Navbar() {
       <div className="flex space-x-4">
         <Link
           href="/"
-          className="hover:text-accent transition-colors duration-200 py-2 px-1.5 sm:px-0 sm:py-0"
+          className="hover:text-accent transition-colors duration-200"
         >
           <span className="text-accent">[h]</span> home
         </Link>
         <Link
           href="/writings"
           prefetch={true}
-          className="hover:text-accent transition-colors duration-200 py-2 px-1.5 sm:px-0 sm:py-0"
+          className="hover:text-accent transition-colors duration-200"
         >
           <span className="text-accent">[w]</span> writings
         </Link>
         <Link
           href="/projects"
-          className="hover:text-accent transition-colors duration-200 py-2 px-1.5 sm:px-0 sm:py-0"
+          className="hover:text-accent transition-colors duration-200"
         >
           <span className="text-accent">[p]</span> projects
         </Link>

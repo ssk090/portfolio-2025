@@ -1,7 +1,5 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { useCallback } from 'react';
-import type { Activity } from 'react-github-calendar';
 
 const GitHubCalendar = dynamic(
     () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),

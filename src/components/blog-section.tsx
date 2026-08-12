@@ -1,9 +1,8 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { getPublishedPosts } from "@/lib/blog"
-import { formatDate } from "@/lib/utils"
+import { getPosts } from "@/lib/blog"
 
-const posts = getPublishedPosts()
+const posts = getPosts()
   .sort(
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
@@ -29,10 +28,7 @@ export function BlogSection() {
             <span className="text-sm text-gray-400">
               {formatDate(post.metadata.date)}
             </span>
-            <span className="text-gray-200 group-hover:text-accent transition-colors duration-200">
-              {post.metadata.title.toLowerCase()}
-            </span>
-          </Link>
+          </div>
         ))}
       </div>
       <Link
@@ -44,4 +40,14 @@ export function BlogSection() {
       </Link>
     </section>
   )
+}
+
+function formatDate(dateString: string) {
+  return new Date(dateString)
+    .toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    })
+    .toLowerCase()
 }
