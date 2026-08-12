@@ -15,6 +15,8 @@ type SectionListProps = {
   items: Item[]
   viewAllHref?: string
   viewAllText?: string
+  showTitle?: boolean
+  showSectionBorder?: boolean
 }
 
 export function SectionList({
@@ -22,15 +24,19 @@ export function SectionList({
   items,
   viewAllHref,
   viewAllText,
+  showTitle = true,
+  showSectionBorder = true,
 }: SectionListProps) {
   return (
-    <section>
+    <section className={showSectionBorder ? "border-t border-neutral-800 pt-10" : ""}>
       <div className="mb-16 animate-fade-in-up">
-        <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
-          <span className="text-accent mr-2">*</span> {title}
-        </h2>
+        {showTitle && (
+          <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
+            <span className="text-accent mr-2">*</span> {title}
+          </h2>
+        )}
         <div className="space-y-8">
-          {items.map((item, _index) => (
+          {items.map((item) => (
             <div
               key={item.title}
               className="group border border-gray-800 p-6 transition-colors hover:border-accent/50 duration-300"
@@ -42,7 +48,7 @@ export function SectionList({
                   </h3>
                   {title === "projects" ? (
                     <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" />
-                  ) : title === "work ex" && item.location ? (
+                  ) : item.location ? (
                     <h3 className="text-sm text-gray-400">{item.location}</h3>
                   ) : null}
                 </div>

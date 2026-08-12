@@ -3,7 +3,7 @@
 import { Header } from "@/components/header"
 import { Item, SectionList } from "@/components/section-list"
 import { LinksSection } from "@/components/links-section"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { SkillsSection } from "@/components/skills-section"
 import GithubCalender from "@/components/github-calender"
 

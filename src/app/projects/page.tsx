@@ -96,7 +96,7 @@ export default function ProjectsPage() {
         <ScrambleText text="projects" />
       </h1>
 
-      <p className="text-gray-400 mb-12 leading-relaxed">
+      <p className="text-gray-400 mb-6 leading-relaxed">
         here are some of the projects i&apos;ve worked on. i love building tools
         that solve real problems and exploring new technologies along the way.
         check out my{" "}
@@ -111,7 +111,7 @@ export default function ProjectsPage() {
         for more.
       </p>
 
-      <div className="space-y-12">
+      <div className="space-y-6">
         {projects.map((project) => (
           <ProjectCard key={project.title} {...project} />
         ))}

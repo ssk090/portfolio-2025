@@ -5,7 +5,6 @@ import { Users } from "lucide-react"
 
 export function VisitorCounter() {
     const [count, setCount] = useState<number | null>(null)
-    const [isConnected, setIsConnected] = useState(false)
 
     useEffect(() => {
         let eventSource: EventSource | null = null
@@ -46,7 +45,6 @@ export function VisitorCounter() {
 
                 // Connect to SSE stream with sessionId for faster cleanup updates
                 eventSource = new EventSource(`/api/visitors/stream?sessionId=${sessionId}`)
-                setIsConnected(true)
 
                 eventSource.onmessage = (event) => {
                     const data = JSON.parse(event.data)
@@ -55,7 +53,6 @@ export function VisitorCounter() {
 
                 eventSource.onerror = () => {
                     console.error("SSE connection error")
-                    setIsConnected(false)
                     eventSource?.close()
                 }
             } catch (error) {
