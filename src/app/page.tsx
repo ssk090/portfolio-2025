@@ -6,61 +6,35 @@ import { LinksSection } from "@/components/links-section"
 import { motion } from "motion/react"
 import { SkillsSection } from "@/components/skills-section"
 import GithubCalender from "@/components/github-calender"
+import { workItems } from "@/lib/work-items"
 
-const workItems: Item[] = [
+const projectItems: Item[] = [
   {
-    title: "altir india private limited",
-    role: "senior software engineer",
-    location: "hyderabad, india",
-    period: "april 2023 - present",
-    description: [
-      "worked on a web application using react, typescript, and supporting libraries to fix bugs and develop new features, improving overall functionality, performance, and user experience",
-      "self-learned react native and delivered a cross-platform mobile app within 2 months and received client appreciations",
-      "worked closely with designers, backend developers, and testers to deliver clean, efficient, and reliable code on time",
-    ],
-    href: "https://www.altir.co/",
-  },
-  {
-    title: "infosys limited",
-    role: "senior systems engineer",
-    location: "hyderabad, india",
-    period: "nov 2020 - mar 2023",
-    description: [
-      "developed and maintained scalable web apps using react, angular, and typescript, improving performance and usability across client projects",
-      "delivered new features, fixed bugs, and integrated apis in agile teams, boosting user experience by up to 60%",
-      "enhanced ui reusability and increased unit test coverage from 65% to 85% while supporting deployments with spring boot, git, and mysql",
-    ],
-    href: "https://www.infosys.com/",
-  },
-]
-
-const projectItems = [
-  {
-    title: "interview-prep-ai",
+    title: "interview ai",
     role: "side project",
     description: [
-      "an ai-powered interview preparation tool built with next.js, typescript, and gemini api",
-      "helps users practice technical interviews with intelligent feedback",
+      "full-stack ai mock interview platform with role-based practice, structured feedback, and session history",
+      "integrated vapi ai for real-time voice interviews and google gemini for question generation and evaluation",
     ],
     href: "https://interview-prep-ai-beta.vercel.app/",
+  },
+  {
+    title: "merged github contribution calendar",
+    role: "side project",
+    description: [
+      "react component that combines github contribution calendars from multiple users into one visualization",
+      "supports repository mode, manual username comparison, theme customization, and token auth for rate limits",
+    ],
+    href: "https://git-contri-merged.vercel.app",
   },
   {
     title: "better-rag",
     role: "side project",
     description: [
-      "improved rag (retrieval augmented generation) implementation for better ai responses",
-      "built with modern ai/llm technologies for enhanced context understanding",
+      "improved retrieval-augmented generation pipeline for higher-quality ai responses",
+      "built with modern llm tooling for better context retrieval and grounding",
     ],
-    href: "https://github.com/ssk090/better-rag",
-  },
-  {
-    title: "shivflix",
-    role: "side project",
-    description: [
-      "a netflix clone enhanced with imdb-like features",
-      "built primarily using javascript with modern ui/ux patterns",
-    ],
-    href: "https://shivflix.netlify.app/",
+    href: "https://better-rag.vercel.app/",
   },
 ]
 

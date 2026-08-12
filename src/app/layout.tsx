@@ -10,17 +10,17 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.nexxel.dev"),
+  metadataBase: new URL("https://shivanandasai.vercel.app"),
   title: {
     default: "Hi, I'm Shivananda Sai.",
     template: "%s | Shivananda Sai",
   },
   description:
-    "Senior Software Engineer specializing in React, Next.js, TypeScript, and Gen AI.",
+    "Frontend / Full-Stack Engineer with 5+ years of experience building production web and mobile apps with React, TypeScript, Next.js, React Native, and AI-powered workflows.",
   openGraph: {
     title: "Shivananda Sai",
     description:
-      "Senior Software Engineer specializing in React, Next.js, TypeScript, and Gen AI.",
+      "Frontend / Full-Stack Engineer specializing in React, Next.js, TypeScript, React Native, and AI-powered product workflows.",
     url: "https://shivanandasai.vercel.app",
     siteName: "Shivananda Sai",
     locale: "en_US",

@@ -2,9 +2,9 @@ import Link from "next/link"
 
 const links = [
   { title: "email", href: "mailto:shivanandasai.38@gmail.com" },
-  { title: "x.com", href: "https://x.com/imshiv6t9" },
   { title: "github", href: "https://github.com/ssk090" },
   { title: "linkedin", href: "https://www.linkedin.com/in/shivanandasai/" },
+  { title: "x.com", href: "https://x.com/imshiv6t9" },
   { title: "book a call", href: "https://cal.com/shivanandasai" },
 ]
 

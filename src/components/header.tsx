@@ -12,7 +12,7 @@ export function Header() {
       <div className="flex flex-col gap-2 text-gray-400">
         <div className="flex items-center gap-2">
           <MapPin className="w-4 h-4" />
-          bhubaneswar, odisha, india
+          hyderabad, telangana, india
         </div>
         <div className="flex items-center gap-2">
           <Building2 className="w-4 h-4" />
@@ -20,13 +20,12 @@ export function Header() {
         </div>
       </div>
       <p className="leading-relaxed animate-fade-in-up">
-        senior software engineer with 5+ years of experience specializing in
-        frontend development. currently working at altir, focused on building
-        scalable web applications using react, next.js, and typescript.
-        previously at infosys, where i optimized client dashboards and improved
-        performance by up to 60%. passionate about staying current with emerging
-        technologies including gen ai, and constantly learning through personal
-        projects.
+        frontend / full-stack engineer with 5+ years of experience building
+        production web and mobile applications using react, typescript,
+        next.js, react native, and angular. strong in ui architecture, api
+        integrations, testing, performance improvements, and ai-powered product
+        workflows. currently at altir shipping client-facing products; previously
+        at infosys building enterprise web apps.
       </p>
     </header>
   )
