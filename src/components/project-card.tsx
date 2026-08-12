@@ -27,7 +27,7 @@ export function ProjectCard({
           <h2 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
             {title}
           </h2>
-          <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" />
+          <ArrowUpRight className="w-5 h-5 text-gray-400 rotate-45 group-hover:rotate-0 group-hover:text-accent transition-all duration-200" />
         </div>
       </Link>
 

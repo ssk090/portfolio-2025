@@ -53,7 +53,7 @@ export default function ProjectsPage() {
         className="inline-flex items-center gap-1 mt-12 text-accent hover:underline group"
       >
         more projects
-        <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        <ArrowUpRight className="w-4 h-4 rotate-45 transition-transform duration-200 group-hover:rotate-0" />
       </Link>
     </main>
   )

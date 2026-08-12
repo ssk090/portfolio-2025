@@ -47,7 +47,7 @@ export function SectionList({
                     {item.title}
                   </h3>
                   {title === "projects" ? (
-                    <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" />
+                    <ArrowUpRight className="w-5 h-5 text-gray-400 rotate-45 group-hover:rotate-0 group-hover:text-accent transition-all duration-200" />
                   ) : item.location ? (
                     <h3 className="text-sm text-gray-400">{item.location}</h3>
                   ) : null}
@@ -70,7 +70,7 @@ export function SectionList({
             className="inline-flex items-center gap-1 mt-6 text-accent hover:underline group"
           >
             {viewAllText}{" "}
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-4 h-4 rotate-45 transition-transform duration-200 group-hover:rotate-0" />
           </Link>
         )}
       </div>
