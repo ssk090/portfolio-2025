@@ -20,10 +20,6 @@ export function Posts({ posts }: PostsProps) {
     item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  useEffect(() => {
-    setSelectedIndex(0)
-  }, [searchQuery])
-
   const scrollSelectedIntoView = () => {
     if (selectedItemRef.current) {
       selectedItemRef.current.scrollIntoView({
@@ -41,7 +37,7 @@ export function Posts({ posts }: PostsProps) {
       } else if (e.key === "Escape" && isSearching) {
         setIsSearching(false)
         setSearchQuery("")
-        document.activeElement instanceof HTMLElement &&
+        if (document.activeElement instanceof HTMLElement) {
           document.activeElement.blur()
       } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault()
@@ -70,18 +66,21 @@ export function Posts({ posts }: PostsProps) {
   return (
     <>
       {isSearching && (
-        <div className="fixed bottom-4 left-4 right-4 max-w-2xl mx-auto bg-black/50 backdrop-blur-sm border border-gray-800 p-2">
+        <div className="fixed bottom-4 left-4 right-4 max-w-2xl mx-auto bg-black/50 backdrop-blur-xs border border-gray-800 p-2">
           <div className="flex items-center text-gray-400">
             <span className="text-accent mr-2">/</span>
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent outline-none"
+              onChange={(e) => {
+                setSearchQuery(e.target.value)
+                setSelectedIndex(0)
+              }}
+              className="flex-1 bg-transparent outline-hidden"
               autoFocus
               placeholder="search posts..."
               aria-label="Search posts"
-              role="searchbox"
+              role="combobox"
               aria-expanded={filteredPosts.length > 0}
               aria-controls="search-results"
               aria-activedescendant={

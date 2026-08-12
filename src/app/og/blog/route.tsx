@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og"
 
+export const runtime = "edge"
+
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(
     text
@@ -32,7 +34,7 @@ export async function GET(request: Request) {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#111",
-          fontFamily: "Geist Mono",
+          fontFamily: "JetBrains Mono",
           padding: "40px",
           position: "relative",
         }}
@@ -75,8 +77,8 @@ export async function GET(request: Request) {
       height: 600,
       fonts: [
         {
-          name: "Geist Mono",
-          data: await loadGoogleFont("Geist Mono", title),
+          name: "JetBrains Mono",
+          data: await loadGoogleFont("JetBrains+Mono", title),
           style: "normal",
         },
       ],

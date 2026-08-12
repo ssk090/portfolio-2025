@@ -15,6 +15,8 @@ type SectionListProps = {
   items: Item[]
   viewAllHref?: string
   viewAllText?: string
+  showTitle?: boolean
+  showSectionBorder?: boolean
 }
 
 export function SectionList({
@@ -22,6 +24,8 @@ export function SectionList({
   items,
   viewAllHref,
   viewAllText,
+  showTitle = true,
+  showSectionBorder = true,
 }: SectionListProps) {
   return (
     <section>

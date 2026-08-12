@@ -16,51 +16,36 @@ export function ProjectCard({
   description,
   role,
   period,
-  achievements,
   technologies,
   href,
 }: ProjectCardProps) {
   return (
-    <div className="group border border-gray-800 p-6 transition-colors hover:border-accent/50">
-      <Link href={href} target="_blank">
-        <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
+    <Link href={href} target="_blank" className="group block rounded-lg p-4 -mx-4 hover:bg-neutral-900/50">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h3 className="text-xl font-semibold text-white group-hover:text-accent transition-colors">
             {title}
-          </h2>
-          <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" />
-        </div>
-      </Link>
-
-      <p className="text-sm text-gray-400 mb-4">
-        {role} {period && `(${period})`}
-      </p>
-
-      <p className="text-gray-300 mb-6">{description}</p>
-
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-white font-semibold mb-2">achievements</h3>
-          <ul className="list-disc list-inside space-y-1 text-gray-400">
-            {achievements.map((achievement, index) => (
-              <li key={index}>{achievement}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-white font-semibold mb-2">technologies</h3>
-          <div className="flex flex-wrap gap-2">
+          </h3>
+          <p className="text-sm text-gray-500 mt-1">
+            {role}
+            {period && (
+              <span className="text-gray-600"> · {period}</span>
+            )}
+          </p>
+          <p className="text-gray-300 mt-2 text-pretty">{description}</p>
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-1 text-sm text-gray-300 bg-gray-800/50 rounded"
+                className="text-xs text-gray-500 bg-neutral-800/60 px-2 py-0.5 rounded-full"
               >
-                {tech.toLowerCase()}
+                {tech}
               </span>
             ))}
           </div>
         </div>
+        <ArrowUpRight className="w-4 h-4 mt-1.5 text-gray-600 group-hover:text-accent transition-colors shrink-0" />
       </div>
-    </div>
+    </Link>
   )
 }
