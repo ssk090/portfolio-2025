@@ -65,5 +65,5 @@ src/lib              site data, writings, projects, visitors, utilities
 ```
 
 ## Screenshot
+<img width="1537" height="3016" alt="localhost_3000_writings" src="https://github.com/user-attachments/assets/863d9e26-b33d-4fa6-aa8a-2ae1e9df52cf" />
 
-<img width="1661" height="2530" alt="portfolio screenshot" src="https://github.com/user-attachments/assets/fb94f795-ecfd-4fab-8f89-d6e9e654d19e" />
