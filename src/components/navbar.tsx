@@ -18,6 +18,11 @@ export function Navbar() {
         return
       }
 
+      // Ignore when modifiers are held (e.g. Ctrl+R should not open resume)
+      if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+        return
+      }
+
       switch (event.key.toLowerCase()) {
         case "h":
           router.push("/")
@@ -64,7 +69,7 @@ export function Navbar() {
           <span className="text-accent">[p]</span> projects
         </Link>
         <Link
-          href="https://drive.google.com/file/d/1fiuzOdnPUu4nW2KCst52PR4zBtwZygvd/view"
+          href="https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-accent transition-colors duration-200"

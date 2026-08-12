@@ -31,6 +31,11 @@ export function Posts({ posts }: PostsProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore when modifiers are held so browser shortcuts still work
+      if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+        return
+      }
+
       if (e.key === "/" && !isSearching) {
         e.preventDefault()
         setIsSearching(true)
