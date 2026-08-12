@@ -1,3 +1,5 @@
+import { SectionHeading } from "@/components/section-heading"
+
 const skillGroups = [
   {
     category: "languages",
@@ -55,9 +57,7 @@ function SkillBadge({ tech }: { tech: string }) {
 export function SkillsSection() {
   return (
     <section className="mb-16 animate-fade-in-up">
-      <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
-        <span className="text-accent mr-2">*</span> skills
-      </h2>
+      <SectionHeading>skills</SectionHeading>
       <div className="space-y-4">
         {skillGroups.map((group) => (
           <div key={group.category}>

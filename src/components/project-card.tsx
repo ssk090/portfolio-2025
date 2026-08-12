@@ -1,66 +1,50 @@
+import type { Project } from "@/lib/projects"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
-type ProjectCardProps = {
-  title: string
-  description: string
-  role: string
-  period?: string
-  achievements: string[]
-  technologies: string[]
-  href: string
-}
-
-export function ProjectCard({
-  title,
-  description,
-  role,
-  period,
-  achievements,
-  technologies,
-  href,
-}: ProjectCardProps) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group border border-gray-800 p-6 transition-colors hover:border-accent/50">
-      <Link href={href} target="_blank">
-        <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
-            {title}
-          </h2>
-          <ArrowUpRight className="w-5 h-5 text-gray-400 rotate-45 group-hover:rotate-0 group-hover:text-accent transition-all duration-200" />
-        </div>
+    <article className="group border border-gray-800 p-6 transition-colors hover:border-accent/50">
+      <Link
+        href={project.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex justify-between items-start mb-4"
+      >
+        <h2 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
+          {project.title}
+        </h2>
+        <ArrowUpRight className="w-5 h-5 text-gray-400 rotate-45 group-hover:rotate-0 group-hover:text-accent transition-[transform,color] duration-200" />
       </Link>
 
       <p className="text-sm text-gray-400 mb-4">
-        {role} {period && `(${period})`}
+        {project.role} {project.period && `(${project.period})`}
       </p>
-
-      <p className="text-gray-300 mb-6">{description}</p>
+      <p className="text-gray-300 mb-6">{project.description}</p>
 
       <div className="space-y-6">
         <div>
           <h3 className="text-white font-semibold mb-2">achievements</h3>
           <ul className="list-disc list-inside space-y-1 text-gray-400">
-            {achievements.map((achievement, index) => (
-              <li key={index}>{achievement}</li>
+            {project.achievements.map((achievement) => (
+              <li key={achievement}>{achievement}</li>
             ))}
           </ul>
         </div>
-
         <div>
           <h3 className="text-white font-semibold mb-2">technologies</h3>
           <div className="flex flex-wrap gap-2">
-            {technologies.map((tech) => (
+            {project.technologies.map((technology) => (
               <span
-                key={tech}
+                key={technology}
                 className="px-2 py-1 text-sm text-gray-300 bg-gray-800/50 rounded"
               >
-                {tech.toLowerCase()}
+                {technology.toLowerCase()}
               </span>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </article>
   )
 }

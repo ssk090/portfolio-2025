@@ -39,10 +39,6 @@ export function createRedisStore(redis: Redis): VisitorStore {
       return keys.length
     },
 
-    async cleanup() {
-      // Permanent unique-visitor model: nothing to delete on leave.
-      return false
-    },
   }
 }
 
@@ -63,10 +59,6 @@ export function createInMemoryStore(
 
     async count() {
       return sessions.size
-    },
-
-    async cleanup(sessionId) {
-      return sessions.delete(sessionId)
     },
   }
 }
@@ -92,7 +84,3 @@ export function getVisitorStore(): VisitorStore {
   return singleton
 }
 
-/** Test seam — replace the singleton. */
-export function setVisitorStoreForTests(store: VisitorStore | null) {
-  singleton = store
-}

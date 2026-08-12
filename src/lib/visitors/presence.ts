@@ -31,7 +31,7 @@ export function isBot(userAgent: string): boolean {
   return BOT_PATTERNS.some((pattern) => ua.includes(pattern))
 }
 
-export function isValidSessionId(sessionId: unknown): sessionId is string {
+function isValidSessionId(sessionId: unknown): sessionId is string {
   return (
     typeof sessionId === "string" &&
     sessionId.length >= 20 &&
@@ -79,19 +79,3 @@ export async function count(
   return store.count()
 }
 
-/**
- * Cleanup is a no-op under the permanent unique-visitor model.
- * Kept so the HTTP adapter can stay honest if a client still beacons.
- */
-export async function cleanup(
-  sessionId: string,
-  store: VisitorStore = getVisitorStore(),
-): Promise<{ success: boolean }> {
-  if (!isValidSessionId(sessionId)) {
-    return { success: false }
-  }
-  if (store.cleanup) {
-    await store.cleanup(sessionId)
-  }
-  return { success: true }
-}

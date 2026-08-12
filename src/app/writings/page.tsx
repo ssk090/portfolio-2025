@@ -1,37 +1,31 @@
-import { ScrambleText } from "@/components/scramble-text"
+import { PageHeader } from "@/components/page-header"
 import { Posts } from "@/components/posts"
 import { published } from "@/lib/writings"
 import { pageOgImages } from "@/lib/site"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 const posts = published()
 
-export default async function BlogPage() {
+export default function BlogPage() {
   return (
     <main className="animate-fade-in-up relative">
-      <h1 className="text-4xl font-bold mb-5 text-white flex">
-        <span className="text-accent mr-2 text-7xl font-light">*</span>
-        <ScrambleText text="writings" />
-      </h1>
-
-      <p className="hidden sm:block text-sm text-gray-400 mb-8">
-        press{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
-          /
-        </kbd>{" "}
-        to search • use{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
-          ↑
-        </kbd>{" "}
-        and{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
-          ↓
-        </kbd>{" "}
-        to navigate
-      </p>
-
+      <PageHeader title="writings">
+        <p className="hidden sm:block text-sm text-gray-400">
+          press <KeyboardKey>/</KeyboardKey> to search • use{" "}
+          <KeyboardKey>↑</KeyboardKey> and <KeyboardKey>↓</KeyboardKey> to
+          navigate
+        </p>
+      </PageHeader>
       <Posts posts={posts} />
     </main>
+  )
+}
+
+function KeyboardKey({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+      {children}
+    </kbd>
   )
 }
 

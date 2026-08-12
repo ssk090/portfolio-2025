@@ -1,21 +1,16 @@
-import { ScrambleText } from "@/components/scramble-text"
+import { PageHeader } from "@/components/page-header"
 import { SectionList } from "@/components/section-list"
 import { workItems } from "@/lib/work-items"
 import { pageOgImages } from "@/lib/site"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 export default function WorkPage() {
   return (
     <main className="animate-fade-in-up">
-      <h1 className="text-4xl font-bold mb-8 text-white">
-        <span className="text-accent accent-glow mr-2">*</span>
-        <ScrambleText text="work" />
-      </h1>
-
-      <p className="text-gray-400 mb-6 leading-relaxed">
-        here&apos;s where i&apos;ve worked and the kind of products i helped ship.
-      </p>
-
+      <PageHeader
+        title="work"
+        description="here's where i've worked and the kind of products i helped ship."
+      />
       <SectionList
         title="work"
         items={workItems}

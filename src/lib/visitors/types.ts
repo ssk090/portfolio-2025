@@ -60,6 +60,4 @@ export interface VisitorStore {
   markVisited(sessionId: string, data: VisitorData): Promise<boolean>
   /** Total unique visited sessions. */
   count(): Promise<number>
-  /** Optional cleanup of a transient key; no-op if unused. */
-  cleanup?(sessionId: string): Promise<boolean>
 }

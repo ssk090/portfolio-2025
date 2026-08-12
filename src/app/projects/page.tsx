@@ -1,8 +1,8 @@
-import { ScrambleText } from "@/components/scramble-text"
+import { PageHeader } from "@/components/page-header"
 import { ProjectCard } from "@/components/project-card"
 import { all } from "@/lib/projects"
 import { pageOgImages } from "@/lib/site"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
@@ -11,38 +11,29 @@ const projects = all()
 export default function ProjectsPage() {
   return (
     <main className="animate-fade-in-up">
-      <h1 className="text-4xl font-bold mb-5 text-white flex">
-        <span className="text-accent mr-2 text-7xl font-light">*</span>
-        <ScrambleText text="projects" />
-      </h1>
-
-      <p className="text-gray-400 mb-6 leading-relaxed">
-        here are some of the projects i&apos;ve worked on. i love building tools
-        that solve real problems and exploring new technologies along the way.
-        check out my{" "}
-        <a
-          href="https://github.com/ssk090"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-accent hover:underline"
-        >
-          github
-        </a>{" "}
-        for more.
-      </p>
+      <PageHeader
+        title="projects"
+        description={
+          <>
+            here are some of the projects i&apos;ve worked on. i love building
+            tools that solve real problems and exploring new technologies along
+            the way. check out my{" "}
+            <a
+              href="https://github.com/ssk090"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              github
+            </a>{" "}
+            for more.
+          </>
+        }
+      />
 
       <div className="space-y-6">
         {projects.map((project) => (
-          <ProjectCard
-            key={project.slug}
-            title={project.title}
-            description={project.description}
-            role={project.role}
-            period={project.period}
-            achievements={project.achievements}
-            technologies={project.technologies}
-            href={project.href}
-          />
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 

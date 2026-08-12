@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { motion } from "motion/react"
+import { useEffect } from "react"
+import { SlidingIndicator } from "@/components/sliding-indicator"
 import { VisitorCounter } from "@/components/visitor-counter"
 import { bindKeymap } from "@/lib/keyboard"
 
@@ -32,14 +32,9 @@ const navItems = [
   },
 ] as const
 
-type Indicator = { left: number; width: number }
-
 export function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
-  const navRef = useRef<HTMLElement>(null)
-  const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
-  const [indicator, setIndicator] = useState<Indicator | null>(null)
 
   const activeHref =
     navItems.find(
@@ -48,42 +43,6 @@ export function Navbar() {
         "match" in item &&
         item.match(pathname),
     )?.href ?? null
-
-  useLayoutEffect(() => {
-    const update = () => {
-      if (!activeHref || !navRef.current) {
-        setIndicator(null)
-        return
-      }
-
-      const el = itemRefs.current.get(activeHref)
-      if (!el) {
-        setIndicator(null)
-        return
-      }
-
-      const navRect = navRef.current.getBoundingClientRect()
-      const itemRect = el.getBoundingClientRect()
-      setIndicator({
-        left: itemRect.left - navRect.left,
-        width: itemRect.width,
-      })
-    }
-
-    update()
-
-    const nav = navRef.current
-    if (!nav) return
-
-    const observer = new ResizeObserver(update)
-    observer.observe(nav)
-    window.addEventListener("resize", update)
-
-    return () => {
-      observer.disconnect()
-      window.removeEventListener("resize", update)
-    }
-  }, [activeHref, pathname])
 
   useEffect(() => {
     return bindKeymap(
@@ -105,6 +64,7 @@ export function Navbar() {
           window.open(
             "https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view",
             "_blank",
+            "noopener,noreferrer",
           )
         },
       },
@@ -113,39 +73,29 @@ export function Navbar() {
   }, [router])
 
   return (
-    <nav
-      ref={navRef}
-      className="relative flex items-center justify-between mb-12 text-sm border-b border-gray-800 pb-4"
-    >
+    <nav className="relative flex items-center justify-between mb-12 text-sm border-b border-gray-800 pb-4">
       <div className="flex space-x-4">
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            ref={(node) => {
-              if (node) itemRefs.current.set(item.href, node)
-              else itemRefs.current.delete(item.href)
-            }}
             prefetch={"prefetch" in item ? item.prefetch : undefined}
             {...("external" in item && item.external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="hover:text-accent transition-colors duration-200"
+            className="relative hover:text-accent transition-colors duration-200"
           >
             <span className="text-accent">[{item.key}]</span> {item.label}
+            {item.href === activeHref && (
+              <SlidingIndicator
+                layoutId="navbar-active-indicator"
+                className="pointer-events-none absolute -bottom-[17px] inset-x-0 h-px bg-accent"
+              />
+            )}
           </Link>
         ))}
       </div>
       <VisitorCounter />
-      {indicator && (
-        <motion.span
-          className="pointer-events-none absolute bottom-0 h-px bg-accent"
-          initial={false}
-          animate={{ left: indicator.left, width: indicator.width }}
-          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-          aria-hidden
-        />
-      )}
     </nav>
   )
 }

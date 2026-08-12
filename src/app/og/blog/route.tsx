@@ -1,71 +1,8 @@
-import { ImageResponse } from "next/og"
-import { loadGoogleFont } from "@/lib/og-font"
+import { renderOgImage } from "@/lib/og-image"
 
 export const runtime = "edge"
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const title = searchParams.get("title") ?? "writings"
-
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#111",
-          fontFamily: "JetBrains Mono",
-          padding: "40px",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            maxWidth: "90%",
-          }}
-        >
-          <span
-            style={{
-              color: "#ff6b35",
-              fontSize: 48,
-              flexShrink: 0,
-            }}
-          >
-            *
-          </span>
-          <h1
-            style={{
-              fontSize: 48,
-              color: "#fff",
-              margin: 0,
-              lineHeight: 1.2,
-              wordBreak: "break-word",
-              overflowWrap: "break-word",
-              maxWidth: "100%",
-            }}
-          >
-            {title}
-          </h1>
-        </div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 600,
-      fonts: [
-        {
-          name: "JetBrains Mono",
-          data: await loadGoogleFont("JetBrains+Mono", title),
-          style: "normal",
-        },
-      ],
-    },
-  )
+  const title = new URL(request.url).searchParams.get("title") ?? "writings"
+  return renderOgImage(title)
 }

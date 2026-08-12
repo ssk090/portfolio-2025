@@ -1,22 +1,17 @@
-/**
- * Writing corpus module — owns parse, draft filter, sort, reading time,
- * headings, adjacent posts, and date formatting behind one interface.
- */
-
-import fs from "fs"
-import path from "path"
+import fs from "node:fs"
+import path from "node:path"
 import { z } from "zod"
 import { formatDate, formatDateLong } from "./dates"
-
-export { formatDate, formatDateLong } from "./dates"
 
 const metadataSchema = z.object({
   title: z.string(),
   description: z.string(),
-  date: z.string(),
+  date: z.string().refine((value) => !Number.isNaN(Date.parse(value)), {
+    message: "Invalid date",
+  }),
   draft: z
     .string()
-    .transform((val) => val === "true")
+    .transform((value) => value === "true")
     .optional()
     .default(false),
 })
@@ -29,16 +24,9 @@ export type Writing = {
   content: string
 }
 
-export type Heading = {
-  text: string
-  slug: string
-  level: number
-}
-
 export type WritingPageModel = {
   writing: Writing
   readingTime: string
-  headings: Heading[]
   prev: Writing | null
   next: Writing | null
   dateLabel: string
@@ -50,30 +38,10 @@ type FrontmatterParseResult = {
   content: string
 }
 
-export function getReadingTime(content: string): string {
+function readingTime(content: string): string {
   const words = content.trim().split(/\s+/).filter(Boolean).length
   const minutes = Math.max(1, Math.round(words / 225))
   return `${minutes} min read`
-}
-
-export function extractHeadings(content: string): Heading[] {
-  const headingRegex = /^(#{2,3})\s+(.+)$/gm
-  const headings: Heading[] = []
-  let match: RegExpExecArray | null
-
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1]!.length
-    const text = match[2]!.trim()
-    const slug = text
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/&/g, "-and-")
-      .replace(/[^\w\-]+/g, "")
-      .replace(/\-\-+/g, "-")
-    headings.push({ text, slug, level })
-  }
-
-  return headings
 }
 
 function parseFrontmatter(fileContent: string): FrontmatterParseResult {
@@ -85,131 +53,117 @@ function parseFrontmatter(fileContent: string): FrontmatterParseResult {
   }
 
   const content = fileContent.replace(frontmatterRegex, "").trim()
-  const frontmatterLines = match[1].trim().split("\n")
   const raw: Record<string, string> = {}
 
-  for (const line of frontmatterLines) {
+  for (const line of match[1].trim().split("\n")) {
     const [key, ...values] = line.split(": ")
     if (!key) continue
-    let value = values.join(": ").trim()
-    value = value.replace(/^['"](.*)['"]$/, "$1")
+
+    const value = values
+      .join(": ")
+      .trim()
+      .replace(/^['"](.*)['"]$/, "$1")
     if (value) {
       raw[key.trim()] = value
     }
   }
 
-  const metadata = metadataSchema.parse(raw)
-  return { metadata, content }
+  return { metadata: metadataSchema.parse(raw), content }
 }
 
-function getMDXFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) {
-    return []
-  }
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx")
-}
-
-function readMDXFile(filePath: string): FrontmatterParseResult {
+function readWriting(filePath: string): FrontmatterParseResult {
   const rawContent = fs.readFileSync(filePath, "utf-8")
-  return parseFrontmatter(rawContent)
+
+  try {
+    return parseFrontmatter(rawContent)
+  } catch (error) {
+    const reason =
+      error instanceof z.ZodError
+        ? error.issues
+            .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+            .join(", ")
+        : error instanceof Error
+          ? error.message
+          : String(error)
+
+    throw new Error(`Invalid Writing ${path.basename(filePath)}: ${reason}`, {
+      cause: error,
+    })
+  }
 }
 
-function loadAll(dir = path.join(process.cwd(), "posts")): Writing[] {
-  return getMDXFiles(dir).map((file) => {
-    const { metadata, content } = readMDXFile(path.join(dir, file))
-    const slug = path.basename(file, path.extname(file))
-    return { metadata, slug, content }
-  })
-}
-
-function byDateDesc(a: Writing, b: Writing): number {
+function byDateDescending(a: Writing, b: Writing): number {
   return (
     new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
   )
 }
 
-/** All writings including drafts. */
-export function all(): Writing[] {
-  return loadAll().sort(byDateDesc)
+function loadCorpus(): Writing[] {
+  const directory = path.join(process.cwd(), "posts")
+  if (!fs.existsSync(directory)) {
+    return []
+  }
+
+  const writings: Writing[] = []
+  for (const file of fs.readdirSync(directory)) {
+    if (path.extname(file) !== ".mdx") continue
+
+    const { metadata, content } = readWriting(path.join(directory, file))
+    writings.push({
+      slug: path.basename(file, path.extname(file)),
+      metadata,
+      content,
+    })
+  }
+
+  return writings.sort(byDateDescending)
 }
 
-/** Published writings, newest first. */
-export function published(): Writing[] {
-  return loadAll()
-    .filter((w) => !w.metadata.draft)
-    .sort(byDateDesc)
-}
-
-/** Lookup by slug (includes drafts so draft preview still works). */
-export function bySlug(slug: string): Writing | null {
-  return loadAll().find((w) => w.slug === slug) ?? null
-}
-
-export function getAdjacent(slug: string): {
-  prev: Writing | null
-  next: Writing | null
-} {
-  const posts = published()
-  const index = posts.findIndex((post) => post.slug === slug)
+function adjacentIn(
+  writings: Writing[],
+  slug: string,
+): { prev: Writing | null; next: Writing | null } {
+  const index = writings.findIndex((writing) => writing.slug === slug)
   if (index === -1) {
     return { prev: null, next: null }
   }
+
   return {
-    prev: index < posts.length - 1 ? (posts[index + 1] ?? null) : null,
-    next: index > 0 ? (posts[index - 1] ?? null) : null,
+    prev:
+      index < writings.length - 1 ? (writings[index + 1] ?? null) : null,
+    next: index > 0 ? (writings[index - 1] ?? null) : null,
   }
 }
 
-/**
- * Ready page model for /writings/[slug] — reading time, headings,
- * adjacent, and formatted dates in one call.
- */
+/** Published Writings, newest first. */
+export function published(): Writing[] {
+  return loadCorpus().filter((writing) => !writing.metadata.draft)
+}
+
+/** Lookup by slug, including drafts for direct preview. */
+export function bySlug(slug: string): Writing | null {
+  return loadCorpus().find((writing) => writing.slug === slug) ?? null
+}
+
+/** Ready-to-render data for a Writing page. */
 export function pageModel(slug: string): WritingPageModel | null {
-  const writing = bySlug(slug)
+  const writings = loadCorpus()
+  const writing = writings.find((candidate) => candidate.slug === slug) ?? null
   if (!writing) {
     return null
   }
 
-  const { prev, next } = getAdjacent(slug)
+  const { prev, next } = adjacentIn(
+    writings.filter((candidate) => !candidate.metadata.draft),
+    slug,
+  )
 
   return {
     writing,
-    readingTime: getReadingTime(writing.content),
-    headings: extractHeadings(writing.content),
+    readingTime: readingTime(writing.content),
     prev,
     next,
     dateLabel: formatDate(writing.metadata.date),
     dateLabelLong: formatDateLong(writing.metadata.date),
   }
-}
-
-// ---------------------------------------------------------------------------
-// Backward-compatible aliases (old blog.ts names)
-// Prefer published() / bySlug() / pageModel() at new call sites.
-// ---------------------------------------------------------------------------
-
-/** @deprecated use Writing */
-export type MDXFileData = Writing
-
-/** @deprecated use all() */
-export function getPosts(): Writing[] {
-  return all()
-}
-
-/** @deprecated use published() */
-export function getPublishedPosts(): Writing[] {
-  return published()
-}
-
-/** @deprecated use bySlug() */
-export function getPostBySlug(slug: string): Writing | null {
-  return bySlug(slug)
-}
-
-/** @deprecated use getAdjacent() */
-export function getAdjacentPosts(slug: string): {
-  prev: Writing | null
-  next: Writing | null
-} {
-  return getAdjacent(slug)
 }
