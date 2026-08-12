@@ -1,14 +1,16 @@
-import { type MDXFileData } from "@/lib/blog"
+import type { Writing } from "@/lib/writings"
+import { formatDate } from "@/lib/dates"
 import Link from "next/link"
 
 type PostItemProps = {
-  post: MDXFileData
+  post: Writing
   isSelected?: boolean
 }
 
 export function PostItem({ post, isSelected }: PostItemProps) {
   return (
     <div
+      id={`post-${post.slug}`}
       className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-4 group ${
         isSelected
           ? "bg-gradient-to-r from-accent/10 to-transparent -mx-2 px-2 border-l-2 border-l-accent/50"
@@ -23,15 +25,7 @@ export function PostItem({ post, isSelected }: PostItemProps) {
         {post.metadata.title.toLowerCase()}
       </Link>
       <div className="flex items-center text-sm text-gray-400 shrink-0">
-        <span>
-          {new Date(post.metadata.date)
-            .toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })
-            .toLowerCase()}
-        </span>
+        <span>{formatDate(post.metadata.date)}</span>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "../components/navbar"
+import { ogHomeImage, site } from "@/lib/site"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -10,22 +11,24 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shivanandasai.vercel.app"),
+  metadataBase: new URL(site.origin),
   title: {
-    default: "Hi, I'm Shivananda Sai.",
-    template: "%s | Shivananda Sai",
+    default: `Hi, I'm ${site.name}.`,
+    template: `%s | ${site.name}`,
   },
-  description:
-    "Frontend / Full-Stack Engineer with 5+ years of experience building production web and mobile apps with React, TypeScript, Next.js, React Native, and AI-powered workflows.",
+  description: site.description,
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+  },
   openGraph: {
-    title: "Shivananda Sai",
-    description:
-      "Frontend / Full-Stack Engineer specializing in React, Next.js, TypeScript, React Native, and AI-powered product workflows.",
-    url: "https://shivanandasai.vercel.app",
-    siteName: "Shivananda Sai",
+    title: site.name,
+    description: site.ogDescription,
+    url: site.origin,
+    siteName: site.name,
     locale: "en_US",
     type: "website",
-    images: ["https://www.nexxel.dev/og/home"],
+    images: [ogHomeImage()],
   },
   robots: {
     index: true,
@@ -35,9 +38,9 @@ export const metadata: Metadata = {
     "max-snippet": -1,
   },
   twitter: {
-    title: "Shivananda Sai",
+    title: site.name,
     card: "summary_large_image",
-    creator: "@imshiv6t9",
+    creator: site.author.twitter,
   },
 }
 

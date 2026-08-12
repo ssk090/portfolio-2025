@@ -1,28 +1,19 @@
-import { Redis } from "@upstash/redis"
 import { NextRequest, NextResponse } from "next/server"
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-})
+import { count } from "@/lib/visitors"
 
 export async function GET(request: NextRequest) {
-  // Create ReadableStream for SSE
   const stream = new ReadableStream({
     async start(controller) {
       const encoder = new TextEncoder()
-      let lastCount = 0
+      let lastCount = -1
 
       const sendUpdate = async () => {
         try {
-          // Get total unique visitor count
-          const visitedSessions = await redis.keys("visited_session:*")
-          const count = visitedSessions.length
+          const current = await count()
 
-          // Only send if count changed (optimize bandwidth)
-          if (count !== lastCount) {
-            lastCount = count
-            const data = `data: ${JSON.stringify({ count })}\n\n`
+          if (current !== lastCount) {
+            lastCount = current
+            const data = `data: ${JSON.stringify({ count: current })}\n\n`
             controller.enqueue(encoder.encode(data))
           }
         } catch (error) {
@@ -31,13 +22,10 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Send initial count
       await sendUpdate()
 
-      // Send updates every 5 seconds (total count changes slowly)
       const interval = setInterval(sendUpdate, 5000)
 
-      // Cleanup on disconnect
       request.signal.addEventListener("abort", () => {
         clearInterval(interval)
         controller.close()

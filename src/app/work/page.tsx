@@ -1,6 +1,7 @@
 import { ScrambleText } from "@/components/scramble-text"
 import { SectionList } from "@/components/section-list"
 import { workItems } from "@/lib/work-items"
+import { pageOgImages } from "@/lib/site"
 import { Metadata } from "next"
 
 export default function WorkPage() {
@@ -15,7 +16,12 @@ export default function WorkPage() {
         here&apos;s where i&apos;ve worked and the kind of products i helped ship.
       </p>
 
-      <SectionList title="work" items={workItems} showTitle={false} showSectionBorder={false} />
+      <SectionList
+        title="work"
+        items={workItems}
+        showTitle={false}
+        showSectionBorder={false}
+      />
     </main>
   )
 }
@@ -24,10 +30,6 @@ export const metadata: Metadata = {
   title: "Work",
   description: "Places I've worked and what I built.",
   openGraph: {
-    images: [
-      {
-        url: "https://www.nexxel.dev/og/home?title=work",
-      },
-    ],
+    images: pageOgImages("work"),
   },
 }

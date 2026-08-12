@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation"
+import Link from "next/link"
 import { MDX } from "./mdx"
-import { getPostBySlug } from "@/lib/blog"
+import { pageModel } from "@/lib/writings"
+import { articleMeta } from "@/lib/site"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -8,46 +10,42 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const slug = (await params).slug
-  const post = getPostBySlug(slug)
-  if (!post) {
+  const model = pageModel(slug)
+  if (!model) {
     return
   }
 
-  const publishedTime = formatDate(post.metadata.date)
+  const meta = articleMeta({
+    title: model.writing.metadata.title,
+    description: model.writing.metadata.description,
+    slug: model.writing.slug,
+    date: model.writing.metadata.date,
+    publishedTimeLabel: model.dateLabelLong,
+  })
 
   return {
-    title: post.metadata.title,
-    description: post.metadata.description,
-    openGraph: {
-      title: post.metadata.title,
-      description: post.metadata.description,
-      publishedTime,
-      type: "article",
-      url: `https://www.nexxel.dev/writings/${post.slug}`,
-      images: [
-        {
-          url: `https://www.nexxel.dev/og/blog?title=${post.metadata.title}`,
-        },
-      ],
-    },
-    twitter: {
-      title: post.metadata.title,
-      description: post.metadata.description,
-      card: "summary_large_image",
-      creator: "@nexxeln",
-      images: [
-        `https://www.nexxel.dev/og/blog?title=${post.metadata.title}&top=${publishedTime}`,
-      ],
-    },
+    title: meta.title,
+    description: meta.description,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
   }
 }
 
 export default async function Post({ params }: PageProps) {
   const slug = (await params).slug
-  const post = getPostBySlug(slug)
-  if (!post) {
+  const model = pageModel(slug)
+  if (!model) {
     notFound()
   }
+
+  const { writing, readingTime, dateLabelLong, prev, next } = model
+  const meta = articleMeta({
+    title: writing.metadata.title,
+    description: writing.metadata.description,
+    slug: writing.slug,
+    date: writing.metadata.date,
+    publishedTimeLabel: dateLabelLong,
+  })
 
   return (
     <section className="animate-fade-in-up">
@@ -55,45 +53,58 @@ export default async function Post({ params }: PageProps) {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.metadata.title,
-            datePublished: post.metadata.date,
-            dateModified: post.metadata.date,
-            description: post.metadata.description,
-            image: `https://nexxel.dev/og/writings?title=${
-              post.metadata.title
-            }&top=${formatDate(post.metadata.date)}`,
-            url: `https://nexxel.dev/writings/${post.slug}`,
-            author: {
-              "@type": "Person",
-              name: "Shivananda Sai",
-            },
-          }),
+          __html: JSON.stringify(meta.jsonLd),
         }}
       />
 
+      <Link
+        href="/writings"
+        className="text-sm text-gray-400 hover:text-accent transition-colors mb-6 inline-block"
+      >
+        ← writings
+      </Link>
+
       <h1 className="text-4xl font-bold mb-4 text-white">
         <span className="text-accent mr-2">*</span>
-        {post.metadata.title}
+        {writing.metadata.title}
       </h1>
 
-      <div className="mb-8 flex items-center justify-between text-sm text-gray-400">
-        <span>{formatDate(post.metadata.date)}</span>
+      <div className="mb-8 flex items-center gap-3 text-sm text-gray-400">
+        <span>{dateLabelLong}</span>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime}</span>
       </div>
 
       <article className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-white hover:prose-a:underline">
-        <MDX source={post.content} />
+        <MDX source={writing.content} />
       </article>
+
+      {(prev || next) && (
+        <nav className="mt-16 pt-8 border-t border-gray-800 flex justify-between gap-4 text-sm">
+          {prev ? (
+            <Link
+              href={`/writings/${prev.slug}`}
+              className="text-gray-400 hover:text-accent transition-colors"
+            >
+              <span className="block text-xs text-gray-500 mb-1">previous</span>
+              {prev.metadata.title.toLowerCase()}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              href={`/writings/${next.slug}`}
+              className="text-gray-400 hover:text-accent transition-colors text-right"
+            >
+              <span className="block text-xs text-gray-500 mb-1">next</span>
+              {next.metadata.title.toLowerCase()}
+            </Link>
+          ) : (
+            <span />
+          )}
+        </nav>
+      )}
     </section>
   )
-}
-
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
 }

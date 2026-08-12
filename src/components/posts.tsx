@@ -2,11 +2,12 @@
 
 import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/navigation"
-import type { MDXFileData } from "@/lib/blog"
+import type { Writing } from "@/lib/writings"
 import { PostItem } from "./post-item"
+import { bindKeymap } from "@/lib/keyboard"
 
 type PostsProps = {
-  posts: MDXFileData[]
+  posts: Writing[]
 }
 
 export function Posts({ posts }: PostsProps) {
@@ -17,7 +18,7 @@ export function Posts({ posts }: PostsProps) {
   const selectedItemRef = useRef<HTMLDivElement>(null)
 
   const filteredPosts = posts.filter((item) =>
-    item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase())
+    item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   const scrollSelectedIntoView = () => {
@@ -30,43 +31,58 @@ export function Posts({ posts }: PostsProps) {
   }
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Ignore when modifiers are held so browser shortcuts still work
-      if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
-        return
-      }
-
-      if (e.key === "/" && !isSearching) {
-        e.preventDefault()
-        setIsSearching(true)
-      } else if (e.key === "Escape" && isSearching) {
-        setIsSearching(false)
-        setSearchQuery("")
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur()
-        }
-      } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-        e.preventDefault()
-        setIsSearching(true)
-        setSelectedIndex((prev) => {
-          const isDownward = e.key === "ArrowDown"
-          const newIndex = isDownward
-            ? prev < filteredPosts.length - 1
-              ? prev + 1
-              : prev
-            : prev > 0
-            ? prev - 1
-            : prev
-          scrollSelectedIntoView()
-          return newIndex
-        })
-      } else if (isSearching && e.key === "Enter" && filteredPosts.length > 0) {
-        router.push(`/writings/${filteredPosts[selectedIndex].slug}`)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
+    return bindKeymap(
+      {
+        "/": (e) => {
+          if (!isSearching) {
+            e.preventDefault()
+            setIsSearching(true)
+          }
+        },
+        Escape: () => {
+          if (isSearching) {
+            setIsSearching(false)
+            setSearchQuery("")
+            if (document.activeElement instanceof HTMLElement) {
+              document.activeElement.blur()
+            }
+          }
+        },
+        ArrowDown: (e) => {
+          e.preventDefault()
+          setIsSearching(true)
+          setSelectedIndex((prev) => {
+            const newIndex =
+              prev < filteredPosts.length - 1 ? prev + 1 : prev
+            // scroll after state commit on next frame
+            requestAnimationFrame(scrollSelectedIntoView)
+            return newIndex
+          })
+        },
+        ArrowUp: (e) => {
+          e.preventDefault()
+          setIsSearching(true)
+          setSelectedIndex((prev) => {
+            const newIndex = prev > 0 ? prev - 1 : prev
+            requestAnimationFrame(scrollSelectedIntoView)
+            return newIndex
+          })
+        },
+        Enter: (e) => {
+          if (isSearching && filteredPosts.length > 0) {
+            e.preventDefault()
+            const post = filteredPosts[selectedIndex]
+            if (post) {
+              router.push(`/writings/${post.slug}`)
+            }
+          }
+        },
+      },
+      // While searching, the input is focused — still allow Escape/arrows/enter.
+      // Only ignore modifiers; typing filter would block keys inside the search box
+      // for letters, but our map only binds special keys.
+      { ignoreWhenTyping: false, ignoreModifiers: true },
+    )
   }, [isSearching, filteredPosts, selectedIndex, router])
 
   return (
@@ -91,7 +107,7 @@ export function Posts({ posts }: PostsProps) {
               aria-controls="search-results"
               aria-activedescendant={
                 isSearching && filteredPosts.length > 0
-                  ? `post-${filteredPosts[selectedIndex].slug}`
+                  ? `post-${filteredPosts[selectedIndex]?.slug}`
                   : undefined
               }
             />
@@ -99,7 +115,7 @@ export function Posts({ posts }: PostsProps) {
         </div>
       )}
 
-      <div className="space-y-8 sm:space-y-4">
+      <div className="space-y-8 sm:space-y-4" id="search-results">
         {filteredPosts.length === 0 ? (
           <div className="text-center text-gray-400 py-8">posts not found</div>
         ) : (
@@ -107,7 +123,9 @@ export function Posts({ posts }: PostsProps) {
             <div
               key={item.slug}
               ref={
-                isSearching && index === selectedIndex ? selectedItemRef : null
+                isSearching && index === selectedIndex
+                  ? selectedItemRef
+                  : null
               }
             >
               <PostItem

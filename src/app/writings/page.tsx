@@ -1,12 +1,10 @@
 import { ScrambleText } from "@/components/scramble-text"
 import { Posts } from "@/components/posts"
-import { getPublishedPosts } from "@/lib/blog"
+import { published } from "@/lib/writings"
+import { pageOgImages } from "@/lib/site"
 import { Metadata } from "next"
 
-const posts = getPublishedPosts().sort(
-  (a, b) =>
-    new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
-)
+const posts = published()
 
 export default async function BlogPage() {
   return (
@@ -41,10 +39,6 @@ export const metadata: Metadata = {
   title: "Writings",
   description: "Writings on programming, computer science, and more.",
   openGraph: {
-    images: [
-      {
-        url: "https://www.nexxel.dev/og/home?title=writings",
-      },
-    ],
+    images: pageOgImages("writings"),
   },
 }
