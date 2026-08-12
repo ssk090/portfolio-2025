@@ -35,7 +35,7 @@ export function Navbar() {
           break
         case "r":
           window.open(
-            "https://drive.google.com/file/d/1fiuzOdnPUu4nW2KCst52PR4zBtwZygvd/view",
+            "https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view",
             "_blank",
           )
           break
