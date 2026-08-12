@@ -1,0 +1,181 @@
+---
+title: "From Autocomplete to Autonomous Agents: What I Learned at Cursor Roadshow Bengaluru"
+description: "How AI-native tools are reshaping software development, developer responsibility, and even live music — takeaways from the Cursor India Roadshow."
+date: "August 3, 2026"
+---
+
+As a developer and technology enthusiast, I am always curious about tools that change how we build software. That curiosity recently took me to the [Cursor](https://cursor.com/) India Roadshow in Bengaluru, where developers, builders, and AI enthusiasts came together to explore the evolving role of artificial intelligence in software engineering.
+
+I expected discussions about AI-assisted coding and developer productivity. What I experienced was much broader.
+
+The event explored how coding tools are evolving from autocomplete assistants into agents capable of working across the software development lifecycle. There were technical sessions, practical demonstrations, conversations with the Cursor team, and an unexpected finale where code was transformed into live music.
+
+Here are my biggest takeaways from the experience.
+
+## AI Coding Is Moving Beyond Autocomplete
+
+For many developers, the first experience of AI-assisted programming was autocomplete. You start writing a function, and the tool predicts the next few lines.
+
+This was helpful, but limited. The developer still had to break the problem down, open the right files, write most of the logic, and manually verify everything.
+
+The sessions at the roadshow showed how quickly that model is changing. AI-assisted development appears to be progressing through three broad stages:
+
+1. **Tab autocomplete**, where AI predicts small pieces of code.
+2. **Synchronous agents**, where developers guide an agent through a continuous prompt-and-response workflow.
+3. **Cloud agents**, where an agent can independently work on larger tasks, run commands, produce changes, and return the result for review.
+
+The third stage is particularly interesting. Instead of helping with only the next few lines, an agent can potentially understand a broader objective, inspect the codebase, implement a solution, run tests, and prepare a pull request.
+
+This changes AI's role from a typing assistant to an active participant in the engineering workflow.
+
+## AI Is Expanding Across the SDLC
+
+One of the strongest themes at the roadshow was that AI's value is not limited to writing code.
+
+A large portion of an engineer's time is spent understanding requirements, reviewing pull requests, debugging failures, reproducing issues, maintaining documentation, and coordinating with other people. These are exactly the areas where agents are beginning to help.
+
+Some of the use cases discussed included:
+
+- Investigating and fixing CI failures
+- Reproducing reported bugs
+- Triaging engineering tickets
+- Detecting potential security vulnerabilities
+- Generating or improving test coverage
+- Reviewing pull requests
+- Summarizing codebase changes
+- Assigning appropriate reviewers
+- Investigating Datadog or PagerDuty incidents
+- Cleaning up outdated feature flags
+- Generating technical documentation
+- Converting a product requirement into an initial pull request
+
+This made me rethink the usual definition of developer productivity.
+
+Productivity is not simply about producing more lines of code. It is about reducing the time between identifying a problem and delivering a reliable solution. If AI can shorten the feedback loops around implementation, testing, review, and debugging, its impact can extend far beyond the editor.
+
+## "You Still Read the Diff, and You Still Merge"
+
+This was one of the most important ideas shared during the event.
+
+AI agents may be able to modify multiple files, run tests, create pull requests, and work on long-running migrations. However, the responsibility for the final result still belongs to the engineer.
+
+That means developers must continue to:
+
+- Understand the requirement
+- Review generated changes critically
+- Identify incorrect assumptions
+- Check security and performance implications
+- Validate edge cases
+- Confirm that tests cover the correct behaviour
+- Consider long-term maintainability
+- Decide whether the change should be shipped
+
+AI can accelerate execution, but it cannot remove engineering ownership.
+
+In fact, widespread AI adoption may make engineering judgement even more valuable. When producing code becomes easier, the ability to distinguish good code from code that merely looks correct becomes increasingly important.
+
+The bottleneck may gradually move from writing code to reviewing decisions.
+
+## Effective AI Usage Is Becoming a Workflow
+
+Another interesting part of the event was learning about structured agent workflows.
+
+Instead of treating every task as a generic conversation with an AI assistant, developers can choose a workflow based on the nature of the problem:
+
+- `/multitask` hands over breadth by allowing several independent tasks to progress in parallel.
+- `/loop` hands over time by letting an agent repeatedly execute, evaluate, and improve its work.
+- `/babysit` hands over a defined goal and asks the agent to continue until that outcome is achieved.
+- `/orchestrate` hands over parts of the plan by coordinating multiple agents or streams of work.
+
+These patterns show that working effectively with AI involves more than writing a clever prompt. It requires us to think about task boundaries, context, verification, and the appropriate level of autonomy.
+
+A small bug fix may need a short interactive session. A large migration may require a repeatable process with checkpoints, tests, decision logs, and human review.
+
+The better we define the workflow, the more reliable the agent's output becomes.
+
+## Context Is More Valuable Than a Clever Prompt
+
+Another takeaway was the importance of giving agents the right context.
+
+A coding agent needs more than a request such as "implement this feature." It may also need:
+
+- The relevant product requirement
+- Existing architectural patterns
+- Repository conventions
+- Examples of similar implementations
+- Testing expectations
+- Important constraints
+- A clear definition of completion
+
+This is not entirely different from working with another engineer. Ambiguous requirements produce ambiguous implementations, regardless of whether the work is performed by a human or an AI agent.
+
+The quality of AI-generated code often reflects the quality of the context and constraints provided to it.
+
+This is why skills such as requirement analysis, architecture, documentation, and code review remain essential. AI does not make these skills less relevant. It makes their value more visible.
+
+## Cloud Agents Introduce New Organisational Questions
+
+Long-running cloud agents can work on migrations, repetitive changes, and multi-step engineering tasks for extended periods. That creates exciting possibilities, but it also introduces questions that companies will need to address.
+
+For example:
+
+- Which models can agents use?
+- Which tools and MCP servers should they access?
+- What network destinations should be allowed?
+- How should credentials and sensitive data be protected?
+- What spending and execution limits should be configured?
+- Which tasks require mandatory human approval?
+- How should autonomous work be audited?
+
+Adopting agents is therefore not only a developer-tooling decision. It also involves security, governance, cost management, and engineering culture.
+
+Teams will need to decide where autonomy is useful, where supervision is necessary, and what evidence an agent must provide before its work can be trusted.
+
+## The Future Engineer Will Operate at a Higher Level
+
+My biggest takeaway from the roadshow is not that AI will replace software engineers. It is that AI will change the level at which engineers are expected to operate.
+
+Some repetitive implementation work may continue to decrease. At the same time, higher-level responsibilities will become more important:
+
+- Defining problems precisely
+- Breaking large goals into verifiable tasks
+- Making architectural decisions
+- Reviewing generated code
+- Evaluating trade-offs
+- Designing reliable tests
+- Debugging complex system behaviour
+- Ensuring security and maintainability
+
+The most effective engineers may not be the people who type code the fastest. They may be the ones who can guide agents clearly, evaluate their decisions, and consistently turn generated output into dependable software.
+
+For frontend and full-stack developers, this is a good time to experiment beyond autocomplete. We can start by delegating small, well-defined tasks, asking agents to explain unfamiliar code, generating tests, investigating failures, or automating repetitive maintenance work.
+
+The goal should not be to use AI everywhere. It should be to understand where AI meaningfully improves the engineering process.
+
+## A Small Surprise: Merch and Cursor Credits
+
+One fun and unexpected part of the event was walking away with some Cursor merch and a set of Cursor credits. It was a nice touch that made the experience feel more hands-on and community-driven, rather than just another tech talk.
+
+More than the swag itself, it felt like an invitation to actually go back and experiment with the tool in real projects. That, in many ways, is the best kind of takeaway from an event like this.
+
+## When Code Became Music
+
+The most unexpected part of the roadshow came toward the end: a creative coding workshop followed by a live Algorave performance by Abhinay, which was also listed in the official event schedule.
+
+An Algorave is a performance where music is created or manipulated using code in real time. Instead of using only traditional instruments, the performer writes and modifies algorithms that generate rhythms, patterns, and electronic sounds.
+
+Watching beats emerge from code was a one-of-a-kind experience for me. I had always viewed code primarily as a way to build applications, automate tasks, and solve technical problems. Seeing it used as a live creative instrument opened an entirely different perspective.
+
+The audience was not simply listening to music. We were watching the logic behind it evolve on screen while hearing the result immediately.
+
+It was a fitting conclusion to an event about the changing relationship between humans and technology. Throughout the day, we saw how AI could help engineers turn ideas into software. At the Algorave, we saw how code itself could be transformed into art.
+
+## Final Thoughts
+
+The Cursor Roadshow Bengaluru offered a fascinating glimpse into the direction of software development.
+
+AI coding tools are evolving from passive suggestion engines into agents that can understand context, execute multi-step tasks, and participate across the SDLC. However, greater capability does not reduce the importance of developers. It increases the need for clear thinking, careful review, and accountability.
+
+The future of software engineering will not be defined only by how much code AI can generate. It will be defined by how effectively humans and AI can work together to build reliable systems.
+
+And sometimes, that collaboration may produce something completely unexpected, like turning a few lines of code into a room full of music.
