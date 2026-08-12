@@ -18,8 +18,8 @@ Live site: [shiv-2025.vercel.app](https://shiv-2025.vercel.app/)
 
 ## Stack
 
-- Next.js 15
-- React 19 RC
+- Next.js 16
+- React 19
 - TypeScript
 - Tailwind CSS 4
 - MDX via `next-mdx-remote`
@@ -54,6 +54,7 @@ bun dev     # start development server with Turbopack
 bun build   # build for production
 bun start   # start production server
 bun lint    # run ESLint
+bun test    # run the test suite
 ```
 
 ## Project Structure

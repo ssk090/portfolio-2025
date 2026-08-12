@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { SlidingIndicator } from "@/components/sliding-indicator"
+import { SlidingDivider } from "@/components/sliding-divider"
 import { VisitorCounter } from "@/components/visitor-counter"
 import { bindKeymap } from "@/lib/keyboard"
 
@@ -35,7 +35,6 @@ const navItems = [
 export function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
-
   const activeHref =
     navItems.find(
       (item) =>
@@ -47,20 +46,20 @@ export function Navbar() {
   useEffect(() => {
     return bindKeymap(
       {
-        h: (e) => {
-          e.preventDefault()
+        h: (event) => {
+          event.preventDefault()
           router.push("/")
         },
-        w: (e) => {
-          e.preventDefault()
+        w: (event) => {
+          event.preventDefault()
           router.push("/writings")
         },
-        p: (e) => {
-          e.preventDefault()
+        p: (event) => {
+          event.preventDefault()
           router.push("/projects")
         },
-        r: (e) => {
-          e.preventDefault()
+        r: (event) => {
+          event.preventDefault()
           window.open(
             "https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view",
             "_blank",
@@ -79,23 +78,19 @@ export function Navbar() {
           <Link
             key={item.href}
             href={item.href}
+            data-sliding-divider-item={item.href}
             prefetch={"prefetch" in item ? item.prefetch : undefined}
             {...("external" in item && item.external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="relative hover:text-accent transition-colors duration-200"
+            className="hover:text-accent transition-colors duration-300 ease-in-out"
           >
             <span className="text-accent">[{item.key}]</span> {item.label}
-            {item.href === activeHref && (
-              <SlidingIndicator
-                layoutId="navbar-active-indicator"
-                className="pointer-events-none absolute -bottom-[17px] inset-x-0 h-px bg-accent"
-              />
-            )}
           </Link>
         ))}
       </div>
       <VisitorCounter />
+      <SlidingDivider activeId={activeHref} />
     </nav>
   )
 }
