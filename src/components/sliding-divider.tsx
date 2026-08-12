@@ -82,10 +82,8 @@ export function SlidingDivider({
           opacity: position ? 1 : 0,
         }}
         transition={{
-          type: "spring",
-          stiffness: 280,
-          damping: 18,
-          mass: 0.75,
+          duration: 0.4,
+          ease: [0.22, 1, 0.36, 1],
         }}
         aria-hidden
       />
