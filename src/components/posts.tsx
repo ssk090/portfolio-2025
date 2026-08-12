@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { createPortal } from "react-dom"
 import { useRouter } from "next/navigation"
 import type { Writing } from "@/lib/writings"
 import { PostItem } from "./post-item"
@@ -14,8 +15,13 @@ export function Posts({ posts }: PostsProps) {
   const [isSearching, setIsSearching] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
   const selectedItemRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const filteredPosts = posts.filter((item) =>
     item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -87,33 +93,38 @@ export function Posts({ posts }: PostsProps) {
 
   return (
     <>
-      {isSearching && (
-        <div className="fixed bottom-4 left-4 right-4 max-w-2xl mx-auto bg-black/50 backdrop-blur-sm border border-gray-800 p-2">
-          <div className="flex items-center text-gray-400">
-            <span className="text-accent mr-2">/</span>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setSelectedIndex(0)
-              }}
-              className="flex-1 bg-transparent outline-none"
-              autoFocus
-              placeholder="search posts..."
-              aria-label="Search posts"
-              role="combobox"
-              aria-expanded={filteredPosts.length > 0}
-              aria-controls="search-results"
-              aria-activedescendant={
-                isSearching && filteredPosts.length > 0
-                  ? `post-${filteredPosts[selectedIndex]?.slug}`
-                  : undefined
-              }
-            />
-          </div>
-        </div>
-      )}
+      {mounted &&
+        isSearching &&
+        createPortal(
+          <div className="fixed inset-0 z-50 flex h-dvh w-screen items-center justify-center p-4">
+            <div className="w-full max-w-2xl bg-black/90 backdrop-blur-sm border border-gray-800 p-2">
+              <div className="flex items-center text-gray-400">
+                <span className="text-accent mr-2">/</span>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value)
+                    setSelectedIndex(0)
+                  }}
+                  className="flex-1 bg-transparent outline-none"
+                  autoFocus
+                  placeholder="search posts..."
+                  aria-label="Search posts"
+                  role="combobox"
+                  aria-expanded={filteredPosts.length > 0}
+                  aria-controls="search-results"
+                  aria-activedescendant={
+                    isSearching && filteredPosts.length > 0
+                      ? `post-${filteredPosts[selectedIndex]?.slug}`
+                      : undefined
+                  }
+                />
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
 
       <div className="space-y-8 sm:space-y-4" id="search-results">
         {filteredPosts.length === 0 ? (
