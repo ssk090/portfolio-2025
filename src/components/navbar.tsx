@@ -25,7 +25,7 @@ const navItems = [
       path === "/projects" || path.startsWith("/projects/"),
   },
   {
-    href: "https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view",
+    href: "https://drive.google.com/file/d/1DY5NTqWczUpEiQhDVjtm1XytWSlVUd8t/view",
     label: "resume",
     key: "r",
     external: true,
@@ -61,7 +61,7 @@ export function Navbar() {
         r: (event) => {
           event.preventDefault()
           window.open(
-            "https://drive.google.com/file/d/1ExS530Q2zMcYcvfSm7w1if2TEuW-fybl/view",
+            "https://drive.google.com/file/d/1DY5NTqWczUpEiQhDVjtm1XytWSlVUd8t/view",
             "_blank",
             "noopener,noreferrer",
           )
