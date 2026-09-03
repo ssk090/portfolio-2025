@@ -20,12 +20,11 @@ export function Header() {
         </div>
       </div>
       <p className="leading-relaxed animate-fade-in-up">
-        frontend / full-stack engineer with 5+ years of experience building
-        production web and mobile applications using react, typescript,
-        next.js, react native, and angular. strong in ui architecture, api
-        integrations, testing, performance improvements, and ai-powered product
-        workflows. currently at altir shipping client-facing products; previously
-        at infosys building enterprise web apps.
+        frontend / full-stack engineer with 5+ years building production web and
+        mobile apps. i use react, typescript, next.js, react native, angular,
+        and practical ai tooling. i focus on ui architecture, api integration,
+        testing, and performance. i ship client-facing products at altir. i
+        previously built enterprise web apps at infosys.
       </p>
     </header>
   )

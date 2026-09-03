@@ -23,24 +23,22 @@ export default function AboutPage() {
             Altir
           </a>{" "}
           in Hyderabad, Telangana, India. I ship client-facing web and mobile
-          products with React, TypeScript, Next.js, and React Native. I also
-          work with Angular and AI-assisted product workflows when the problem
-          needs them.
+          products with React, TypeScript, Next.js, and React Native. I also use
+          Angular and AI-assisted workflows when the problem needs them.
         </p>
         <p>
-          Before Altir I was a Senior Systems Engineer at Infosys. There I built
-          and maintained enterprise React and Angular applications, raised test
-          coverage, and helped teams deliver reliable releases. That background
-          still shapes how I think about UI architecture, API integration,
-          testing, and performance.
+          Before Altir I worked at Infosys, ending as a Senior Systems Engineer.
+          I built enterprise React and Angular applications, integrated APIs,
+          and delivered in agile teams. That work still shapes how I think about
+          UI architecture, testing, and performance.
         </p>
         <p>
           This site is my personal portfolio at{" "}
           <a href={site.origin} className="text-accent hover:underline">
             shivanandasai.xyz
           </a>
-          . Use it to read writings, scan projects, and review work history.
-          If you are hiring for frontend or full-stack roles, start with the{" "}
+          . Use it to read writings, scan projects, and review work history. If
+          you hire for frontend or full-stack roles, start with the{" "}
           <Link href="/projects" className="text-accent hover:underline">
             projects
           </Link>{" "}
@@ -56,8 +54,9 @@ export default function AboutPage() {
         </p>
         <p>
           Stack highlights: React, TypeScript, Next.js, React Native, Angular,
-          and practical AI tooling in day-to-day product work. I care about
-          clear interfaces, measurable performance, and shipping on schedule.
+          shadcn/ui, Vapi, Google Gemini, and practical AI tooling in day-to-day
+          product work. I care about clear interfaces, measurable performance,
+          and shipping on schedule.
         </p>
       </section>
 
