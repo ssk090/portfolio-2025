@@ -1,29 +1,70 @@
 import type { Item } from "@/components/section-list"
 
-export const workItems: Item[] = [
+export type WorkRole = {
+  title: string
+  period: string
+  location?: string
+  description?: string[]
+}
+
+export type WorkCompany = {
+  title: string
+  href?: string
+  location?: string
+  /** Company-level bullets when work spans roles without inventing per-role metrics. */
+  description?: string[]
+  roles: WorkRole[]
+}
+
+export const workCompanies: WorkCompany[] = [
   {
     title: "altir india private limited",
-    role:
-      "senior software engineer · oct 2025 - present; software engineer · apr 2023 - oct 2025",
-    location: "hyderabad, india",
-    description: [
-      "developed and shipped production features for client-facing react and typescript applications, improving usability, performance, and reliability across core product flows",
-      "built and delivered a cross-platform react native mobile application within 2 months after independently learning the framework, receiving positive client feedback",
-      "collaborated with designers, backend engineers, and qa teams to build reusable ui components, integrate apis, fix production bugs, and deliver releases on schedule",
-    ],
     href: "https://www.altir.co/",
+    location: "hyderabad, india",
+    roles: [
+      {
+        title: "senior software engineer",
+        period: "oct 2025 - present",
+        location: "hyderabad, india",
+      },
+      {
+        title: "software engineer",
+        period: "apr 2023 - oct 2025",
+        location: "hyderabad, india",
+        description: [
+          "developed and shipped production features for client-facing react and typescript applications, improving usability, performance, and reliability across core product flows",
+          "built and delivered a cross-platform react native mobile application within 2 months after independently learning the framework, receiving positive client feedback",
+          "collaborated with designers, backend engineers, and qa teams to build reusable ui components, integrate apis, fix production bugs, and deliver releases on schedule",
+        ],
+      },
+    ],
   },
   {
     title: "infosys limited",
-    role:
-      "senior systems engineer · sep 2022 - mar 2023; systems engineer · apr 2021 - aug 2022; trainee · nov 2020 - mar 2021 (mysore)",
+    href: "https://www.infosys.com/",
     location: "hyderabad, india",
     description: [
       "developed and maintained enterprise web applications using react, angular, and typescript",
       "delivered frontend features and api integrations in agile teams",
       "improved dashboard usability by up to 60%",
     ],
-    href: "https://www.infosys.com/",
+    roles: [
+      {
+        title: "senior systems engineer",
+        period: "sep 2022 - mar 2023",
+        location: "hyderabad, india",
+      },
+      {
+        title: "systems engineer",
+        period: "apr 2021 - aug 2022",
+        location: "hyderabad, india",
+      },
+      {
+        title: "systems engineer trainee",
+        period: "nov 2020 - mar 2021",
+        location: "mysore, india",
+      },
+    ],
   },
 ]
 

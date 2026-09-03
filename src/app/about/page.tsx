@@ -22,15 +22,20 @@ export default function AboutPage() {
           >
             Altir
           </a>{" "}
-          in Hyderabad, Telangana, India. I ship client-facing web and mobile
-          products with React, TypeScript, Next.js, and React Native. I also use
-          Angular and AI-assisted workflows when the problem needs them.
+          in Hyderabad, Telangana, India (October 2025 to present). I was a
+          Software Engineer at Altir from April 2023 to October 2025. I ship
+          client-facing web and mobile products with React, TypeScript, Next.js,
+          and React Native. I also use Angular and AI-assisted workflows when the
+          problem needs them.
         </p>
         <p>
-          Before Altir I worked at Infosys, ending as a Senior Systems Engineer.
-          I built enterprise React and Angular applications, integrated APIs,
-          and delivered in agile teams. That work still shapes how I think about
-          UI architecture, testing, and performance.
+          Before Altir I worked at Infosys in three roles: Senior Systems
+          Engineer (September 2022 to March 2023, Hyderabad), Systems Engineer
+          (April 2021 to August 2022, Hyderabad), and Systems Engineer Trainee
+          (November 2020 to March 2021, Mysore). I built enterprise React and
+          Angular applications, integrated APIs, and delivered in agile teams.
+          That work still shapes how I think about UI architecture, testing, and
+          performance.
         </p>
         <p>
           This site is my personal portfolio at{" "}

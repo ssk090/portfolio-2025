@@ -9,7 +9,8 @@ lightweight visitor presence counter.
 |------|---------|
 | **Project** | A portfolio piece with summary + full achievements, tech tags, and link. Owned by the Project catalog module (`src/lib/projects.ts`). |
 | **Project catalog** | Single source of truth for all Projects. Interface: `all()`, `featured()`, `bySlug()`. |
-| **Work item** | An employment entry (role, period, location, bullets). Owned by `src/lib/work-items.ts`. |
+| **Work company** | An employer block with nested dated roles (and optional bullets). Owned by `src/lib/work-items.ts` (`WorkCompany` / `workCompanies`). |
+| **Work item** | A single-role entry (internship/education) for `SectionList`. Owned by `src/lib/work-items.ts`. |
 | **Writing** | An MDX post with title, description, date, content, and draft status. Draft Writings are excluded from published listings and adjacency but remain reachable by slug for preview. |
 | **Writing corpus** | Module that loads, filters, sorts writings and builds page models. Interface: `published()`, `bySlug()`, `pageModel(slug)`. (`src/lib/writings.ts`) |
 | **Writing page model** | Ready-to-render bundle: Writing + reading time + published adjacency + date labels. |

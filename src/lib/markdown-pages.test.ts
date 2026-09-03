@@ -81,7 +81,12 @@ describe("markdown pages", () => {
       expect(body).toContain("shivanandasai.xyz")
     }
     expect(aboutMarkdown()).toContain("Altir")
+    expect(aboutMarkdown()).toContain("Senior Software Engineer")
+    expect(aboutMarkdown()).toContain("Software Engineer at Altir")
     expect(aboutMarkdown()).toContain("Infosys")
+    expect(aboutMarkdown()).toContain("Senior Systems Engineer")
+    expect(aboutMarkdown()).toContain("Systems Engineer Trainee")
+    expect(aboutMarkdown()).toContain("Mysore")
     expect(contactMarkdown()).toContain(site.email)
     expect(privacyMarkdown().toLowerCase()).toContain("vercel")
     expect(privacyMarkdown().toLowerCase()).toContain("cal.com")
