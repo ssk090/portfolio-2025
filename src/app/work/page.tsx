@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/page-header"
 import { SectionList } from "@/components/section-list"
 import { workItems } from "@/lib/work-items"
-import { pageOgImages } from "@/lib/site"
+import { pageCanonical, pageOgImages } from "@/lib/site"
 import type { Metadata } from "next"
 
 export default function WorkPage() {
@@ -24,6 +24,7 @@ export default function WorkPage() {
 export const metadata: Metadata = {
   title: "Work",
   description: "Places I've worked and what I built.",
+  alternates: pageCanonical("/work"),
   openGraph: {
     images: pageOgImages("work"),
   },

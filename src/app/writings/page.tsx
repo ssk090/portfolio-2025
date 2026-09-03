@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/page-header"
 import { Posts } from "@/components/posts"
 import { published } from "@/lib/writings"
-import { pageOgImages } from "@/lib/site"
+import { pageCanonical, pageOgImages } from "@/lib/site"
 import type { Metadata } from "next"
 
 const posts = published()
@@ -32,6 +32,7 @@ function KeyboardKey({ children }: { children: React.ReactNode }) {
 export const metadata: Metadata = {
   title: "Writings",
   description: "Writings on programming, computer science, and more.",
+  alternates: pageCanonical("/writings"),
   openGraph: {
     images: pageOgImages("writings"),
   },

@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/page-header"
 import { ProjectCard } from "@/components/project-card"
 import { all } from "@/lib/projects"
-import { pageOgImages } from "@/lib/site"
+import { pageCanonical, pageOgImages } from "@/lib/site"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
@@ -53,6 +53,7 @@ export default function ProjectsPage() {
 export const metadata: Metadata = {
   title: "Projects",
   description: "Some of the projects I've worked on.",
+  alternates: pageCanonical("/projects"),
   openGraph: {
     images: pageOgImages("projects"),
   },

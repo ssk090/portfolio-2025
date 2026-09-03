@@ -24,6 +24,9 @@ function pagesBlock(): string {
     "## Pages",
     "",
     `- [Home](${absoluteUrl("/")})`,
+    `- [About](${absoluteUrl("/about")})`,
+    `- [Contact](${absoluteUrl("/contact")})`,
+    `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [Writings](${absoluteUrl("/writings")})`,
     `- [Projects](${absoluteUrl("/projects")})`,
     `- [Work](${absoluteUrl("/work")})`,
@@ -41,6 +44,74 @@ export function homeMarkdown(): string {
     pagesBlock(),
     "",
     contactBlock(),
+    "",
+  ].join("\n")
+}
+
+export function aboutMarkdown(): string {
+  return [
+    `# About ${site.name}`,
+    "",
+    `${site.name} is a Senior Software Engineer at Altir in Hyderabad, India.`,
+    "He builds production web and mobile products with React, TypeScript, Next.js, React Native, Angular, and AI-assisted workflows.",
+    "",
+    "Before Altir he worked at Infosys as a Senior Systems Engineer on enterprise React and Angular apps.",
+    "His focus is UI architecture, API integration, testing, and performance.",
+    "",
+    "This site is his personal portfolio at shivanandasai.xyz.",
+    "Use it to review writings, projects, and work history, or to get in touch.",
+    "",
+    contactBlock(),
+    "",
+    `[Home](${absoluteUrl("/")}) · [Contact](${absoluteUrl("/contact")}) · [Docs](${absoluteUrl("/docs")})`,
+    "",
+  ].join("\n")
+}
+
+export function contactMarkdown(): string {
+  return [
+    `# Contact ${site.name}`,
+    "",
+    `Reach ${site.name} for frontend or full-stack roles, project reviews, or a short call.`,
+    "Prefer email for async notes. Use Cal.com when you want a scheduled conversation.",
+    "",
+    contactBlock(),
+    "",
+    `- Portfolio: ${site.origin}`,
+    `- About: ${absoluteUrl("/about")}`,
+    `- Privacy: ${absoluteUrl("/privacy")}`,
+    "",
+    `[Home](${absoluteUrl("/")}) · [Docs](${absoluteUrl("/docs")})`,
+    "",
+  ].join("\n")
+}
+
+export function privacyMarkdown(): string {
+  return [
+    `# Privacy`,
+    "",
+    "This is a personal portfolio for Shivananda Sai at shivanandasai.xyz.",
+    "There are no user accounts and no login.",
+    "",
+    "## Hosting",
+    "",
+    "The site is hosted on Vercel. Vercel may process standard request logs and edge telemetry as part of delivery.",
+    "",
+    "## Third-party links",
+    "",
+    "The resume link opens a Google Drive file. Booking uses Cal.com. Social links go to GitHub, LinkedIn, and X.",
+    "Those services have their own policies.",
+    "",
+    "## Visitor presence",
+    "",
+    "An optional visitor presence counter may record a random session id in local storage and a page path so a total visitor count can be shown.",
+    "It is not a marketing analytics suite and it does not build a login profile.",
+    "",
+    "## Contact",
+    "",
+    `Email ${site.email} if you have a privacy question about this site.`,
+    "",
+    `[Home](${absoluteUrl("/")}) · [Contact](${absoluteUrl("/contact")})`,
     "",
   ].join("\n")
 }
@@ -123,11 +194,11 @@ export function projectsMarkdown(): string {
 
 export function docsMarkdown(): string {
   return [
-    "# Docs",
+    "# Docs | Shivananda Sai",
     "",
     "This is a personal portfolio site. There is no public product API, OpenAPI, or MCP surface.",
     "",
-    "Agents can use content negotiation (`Accept: text/markdown`) on home, writings, projects, docs, and missing pages. Start with `/llms.txt`.",
+    "Agents can use content negotiation (`Accept: text/markdown`) on home, about, contact, privacy, writings, projects, docs, and missing pages. Start with `/llms.txt`.",
     "",
     pagesBlock(),
     "",
@@ -151,9 +222,19 @@ export function llmsTxt(): string {
     "",
     site.origin,
     "",
+    "## When to use this",
+    "",
+    `- Hire ${site.name} for frontend or full-stack work (React, TypeScript, Next.js, React Native, Angular, AI workflows).`,
+    "- Review projects and writings on shivanandasai.xyz before outreach.",
+    `- Book a call via ${site.sameAs[3]}.`,
+    `- Contact by email at ${site.email}.`,
+    "",
     "## Pages",
     "",
     `- Home: ${absoluteUrl("/")}`,
+    `- About: ${absoluteUrl("/about")}`,
+    `- Contact: ${absoluteUrl("/contact")}`,
+    `- Privacy: ${absoluteUrl("/privacy")}`,
     `- Writings: ${absoluteUrl("/writings")}`,
     `- Projects: ${absoluteUrl("/projects")}`,
     `- Work: ${absoluteUrl("/work")}`,
@@ -174,7 +255,7 @@ export function llmsTxt(): string {
     "",
     "## Notes for agents",
     "",
-    "- Prefer `Accept: text/markdown` on home, writings, projects, docs, and unknown paths.",
+    "- Prefer `Accept: text/markdown` on home, about, contact, privacy, writings, projects, docs, and unknown paths.",
     "- Do not treat `/api/visitors/*` as a public product API.",
     "- There is no OpenAPI or MCP endpoint on this site.",
     "",
@@ -189,6 +270,7 @@ export function notFoundMarkdown(): string {
     "That URL is not on this site.",
     "",
     `- [Home](${absoluteUrl("/")})`,
+    `- [About](${absoluteUrl("/about")})`,
     `- [Writings](${absoluteUrl("/writings")})`,
     `- [Projects](${absoluteUrl("/projects")})`,
     `- [llms.txt](${absoluteUrl("/llms.txt")})`,
@@ -210,6 +292,15 @@ export function resolveMarkdownPath(pathname: string): MarkdownResolve {
 
   if (path === "/" || path === "") {
     return { status: 200, body: homeMarkdown() }
+  }
+  if (path === "/about") {
+    return { status: 200, body: aboutMarkdown() }
+  }
+  if (path === "/contact") {
+    return { status: 200, body: contactMarkdown() }
+  }
+  if (path === "/privacy") {
+    return { status: 200, body: privacyMarkdown() }
   }
   if (path === "/writings") {
     return { status: 200, body: writingsIndexMarkdown() }
