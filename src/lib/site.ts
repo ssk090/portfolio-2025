@@ -1,5 +1,5 @@
 /**
- * Site identity module — canonical origin, author, social handles,
+ * Site identity module  -  canonical origin, author, social handles,
  * and helpers that build metadata / OG / Person JSON-LD URLs.
  */
 
@@ -11,6 +11,16 @@ export const site = {
   ogDescription:
     "Frontend / Full-Stack Engineer specializing in React, Next.js, TypeScript, React Native, and AI-powered product workflows.",
   email: "shivanandasai.work@gmail.com",
+  jobTitle: "Senior Software Engineer",
+  worksFor: {
+    name: "Altir",
+    url: "https://www.altir.co/",
+  },
+  address: {
+    addressLocality: "Hyderabad",
+    addressRegion: "Telangana",
+    addressCountry: "IN",
+  },
   author: {
     name: "Shivananda Sai",
     twitter: "@imshiv6t9",
@@ -32,7 +42,12 @@ export function absoluteUrl(path = "/"): string {
   return `${site.origin}${normalized}`
 }
 
-/** Homepage Person JSON-LD (no phone). */
+/** Next.js Metadata alternates.canonical helper. */
+export function pageCanonical(path = "/") {
+  return { canonical: absoluteUrl(path) }
+}
+
+/** Homepage Person JSON-LD (no phone, no street). */
 export function personJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -41,6 +56,18 @@ export function personJsonLd() {
     description: site.description,
     url: site.origin,
     email: site.email,
+    jobTitle: site.jobTitle,
+    worksFor: {
+      "@type": "Organization",
+      name: site.worksFor.name,
+      url: site.worksFor.url,
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.address.addressLocality,
+      addressRegion: site.address.addressRegion,
+      addressCountry: site.address.addressCountry,
+    },
     sameAs: [...site.sameAs],
   }
 }
@@ -96,7 +123,7 @@ export function articleMeta(input: ArticleMetaInput) {
       creator: site.author.twitter,
       images: [twitterImage],
     },
-    canonical: url,
+    alternates: pageCanonical(`/writings/${input.slug}`),
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "BlogPosting",

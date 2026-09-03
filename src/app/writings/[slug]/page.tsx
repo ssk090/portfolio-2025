@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: PageProps) {
     description: meta.description,
     openGraph: meta.openGraph,
     twitter: meta.twitter,
+    alternates: meta.alternates,
   }
 }
 

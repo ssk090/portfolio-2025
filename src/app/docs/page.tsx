@@ -1,10 +1,13 @@
 import { PageHeader } from "@/components/page-header"
-import { absoluteUrl, pageOgImages, site } from "@/lib/site"
+import { absoluteUrl, pageCanonical, pageOgImages, site } from "@/lib/site"
 import type { Metadata } from "next"
 import Link from "next/link"
 
 const pages = [
   { title: "home", href: "/" },
+  { title: "about", href: "/about" },
+  { title: "contact", href: "/contact" },
+  { title: "privacy", href: "/privacy" },
   { title: "writings", href: "/writings" },
   { title: "projects", href: "/projects" },
   { title: "work", href: "/work" },
@@ -23,7 +26,8 @@ export default function DocsPage() {
         <p>
           agents can request markdown with{" "}
           <code className="text-accent">Accept: text/markdown</code> on home,
-          writings, projects, docs, and missing pages. start with{" "}
+          about, contact, privacy, writings, projects, docs, and missing pages.
+          start with{" "}
           <Link href="/llms.txt" className="text-accent hover:underline">
             /llms.txt
           </Link>
@@ -119,6 +123,7 @@ export const metadata: Metadata = {
   title: "Docs",
   description:
     "Site map and contact for agents and humans. No public product API.",
+  alternates: pageCanonical("/docs"),
   openGraph: {
     images: pageOgImages("docs"),
   },
