@@ -6,12 +6,20 @@ import { SkillsSection } from "@/components/skills-section"
 import GitHubCalendar from "@/components/github-calendar"
 import { workItems } from "@/lib/work-items"
 import { featured } from "@/lib/projects"
+import { personJsonLd } from "@/lib/site"
 
 const projectItems = featured()
 
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personJsonLd()),
+        }}
+      />
       <Reveal>
         <Header />
       </Reveal>
