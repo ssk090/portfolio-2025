@@ -18,7 +18,7 @@ export default function DocsPage() {
   return (
     <main className="animate-fade-in-up space-y-10">
       <PageHeader
-        title="docs"
+        title="docs · shivananda sai"
         description="this is a personal portfolio site. there is no public product api, openapi, or mcp surface."
       />
 

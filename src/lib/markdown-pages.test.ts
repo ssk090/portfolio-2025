@@ -46,7 +46,7 @@ describe("markdown pages", () => {
 
   it("documents real pages on /docs markdown", () => {
     const body = docsMarkdown()
-    expect(body).toContain("# Docs")
+    expect(body).toContain("# Docs | Shivananda Sai")
     expect(body.toLowerCase()).toContain("no public product api")
     expect(body).toContain("/llms.txt")
     expect(body).toContain("/about")

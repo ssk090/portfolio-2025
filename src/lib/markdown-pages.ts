@@ -194,7 +194,7 @@ export function projectsMarkdown(): string {
 
 export function docsMarkdown(): string {
   return [
-    "# Docs",
+    "# Docs | Shivananda Sai",
     "",
     "This is a personal portfolio site. There is no public product API, OpenAPI, or MCP surface.",
     "",
