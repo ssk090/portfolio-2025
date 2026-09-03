@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest"
-import { absoluteUrl, pageCanonical, personJsonLd, site } from "./site"
+import {
+  absoluteUrl,
+  organizationJsonLd,
+  pageCanonical,
+  personJsonLd,
+  site,
+} from "./site"
 import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 
@@ -50,6 +56,28 @@ describe("site identity", () => {
     expect(person).not.toHaveProperty("telephone")
     expect(JSON.stringify(person)).not.toMatch(/phone/i)
     expect(JSON.stringify(person)).not.toMatch(/street/i)
+  })
+
+  it("exposes Organization JSON-LD with contactPoint and address", () => {
+    const org = organizationJsonLd()
+    expect(org["@type"]).toBe("Organization")
+    expect(org.name).toBe(site.name)
+    expect(org.url).toBe(site.origin)
+    expect(org.email).toBe(site.email)
+    expect(org.contactPoint).toEqual({
+      "@type": "ContactPoint",
+      email: site.email,
+      contactType: "professional",
+    })
+    expect(org.address).toEqual({
+      "@type": "PostalAddress",
+      addressLocality: "Hyderabad",
+      addressRegion: "Telangana",
+      addressCountry: "IN",
+    })
+    expect(org).not.toHaveProperty("telephone")
+    expect(JSON.stringify(org)).not.toMatch(/phone/i)
+    expect(JSON.stringify(org)).not.toMatch(/street/i)
   })
 })
 

@@ -7,6 +7,9 @@ export const PRODUCES = ["text/html", "text/markdown"] as const
 
 export type ProducedType = (typeof PRODUCES)[number]
 
+/** Default Vary tokens for negotiated responses (acceptmarkdown.com). */
+export const NEGOTIATE_VARY_TOKENS = ["Accept", "Accept-Encoding"] as const
+
 type AcceptEntry = { type: string; q: number; specificity: number }
 
 export function parseAccept(header: string): AcceptEntry[] {
@@ -85,23 +88,29 @@ export function preferredType(header: string | null): ProducedType | null {
   return bestType
 }
 
-/** Merge Vary: Accept into an existing header set. */
+/** Merge Accept (+ Accept-Encoding) into an existing Vary header set. */
 export function appendVaryAccept(headers: Headers): void {
   const existing = headers.get("Vary")
-  if (!existing) {
-    headers.set("Vary", "Accept")
-    return
+  const tokens = existing
+    ? existing
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : []
+  const lower = new Set(tokens.map((t) => t.toLowerCase()))
+  for (const token of NEGOTIATE_VARY_TOKENS) {
+    if (!lower.has(token.toLowerCase())) {
+      tokens.push(token)
+      lower.add(token.toLowerCase())
+    }
   }
-  const tokens = existing.split(",").map((s) => s.trim().toLowerCase())
-  if (!tokens.includes("accept")) {
-    headers.set("Vary", `${existing}, Accept`)
-  }
+  headers.set("Vary", tokens.join(", "))
 }
 
 export function markdownHeaders(): HeadersInit {
   return {
     "Content-Type": "text/markdown; charset=utf-8",
-    Vary: "Accept",
+    Vary: "Accept, Accept-Encoding",
   }
 }
 
@@ -112,7 +121,7 @@ export function notAcceptableResponse(): Response {
       status: 406,
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
-        Vary: "Accept",
+        Vary: "Accept, Accept-Encoding",
       },
     },
   )

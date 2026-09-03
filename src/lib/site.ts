@@ -72,6 +72,28 @@ export function personJsonLd() {
   }
 }
 
+/** Organization JSON-LD for Ora / brand crawlers (no phone, no street). */
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.name,
+    url: site.origin,
+    email: site.email,
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: site.email,
+      contactType: "professional",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.address.addressLocality,
+      addressRegion: site.address.addressRegion,
+      addressCountry: site.address.addressCountry,
+    },
+  }
+}
+
 /** Home / section OG image URL. */
 export function ogHomeImage(title?: string): string {
   if (!title) {
