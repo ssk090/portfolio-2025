@@ -9,8 +9,11 @@ const footerLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-16 pt-6 border-t border-gray-800 text-sm text-gray-600">
-      <nav className="flex flex-wrap gap-x-4 gap-y-2" aria-label="site">
+    <footer className="fixed bottom-0 inset-x-0 z-40 border-t border-gray-800 bg-black/95 backdrop-blur-sm text-sm text-gray-600">
+      <nav
+        className="max-w-4xl mx-auto px-5 sm:px-4 py-3 flex flex-wrap gap-x-4 gap-y-2"
+        aria-label="site"
+      >
         {footerLinks.map((link) => (
           <Link
             key={link.href}
