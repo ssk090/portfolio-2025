@@ -1,12 +1,13 @@
 import { SectionHeading } from "@/components/section-heading"
+import { site } from "@/lib/site"
 import Link from "next/link"
 
 const links = [
-  { title: "email", href: "mailto:shivanandasai.38@gmail.com" },
-  { title: "github", href: "https://github.com/ssk090" },
-  { title: "linkedin", href: "https://www.linkedin.com/in/shivanandasai/" },
-  { title: "x.com", href: "https://x.com/imshiv6t9" },
-  { title: "book a call", href: "https://cal.com/shivanandasai" },
+  { title: "email", href: `mailto:${site.email}` },
+  { title: "github", href: site.sameAs[0] },
+  { title: "linkedin", href: site.sameAs[1] },
+  { title: "x.com", href: site.sameAs[2] },
+  { title: "book a call", href: site.sameAs[3] },
 ]
 
 export function LinksSection() {

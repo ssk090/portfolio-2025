@@ -1,19 +1,26 @@
 /**
  * Site identity module — canonical origin, author, social handles,
- * and helpers that build metadata / OG URLs.
+ * and helpers that build metadata / OG / Person JSON-LD URLs.
  */
 
 export const site = {
   name: "Shivananda Sai",
-  origin: "https://shivanandasai.vercel.app",
+  origin: "https://shivanandasai.xyz",
   description:
     "Frontend / Full-Stack Engineer with 5+ years of experience building production web and mobile apps with React, TypeScript, Next.js, React Native, and AI-powered workflows.",
   ogDescription:
     "Frontend / Full-Stack Engineer specializing in React, Next.js, TypeScript, React Native, and AI-powered product workflows.",
+  email: "shivanandasai.38@gmail.com",
   author: {
     name: "Shivananda Sai",
     twitter: "@imshiv6t9",
   },
+  sameAs: [
+    "https://github.com/ssk090",
+    "https://www.linkedin.com/in/shivanandasai/",
+    "https://x.com/imshiv6t9",
+    "https://cal.com/shivanandasai",
+  ] as const,
   packageName: "portfolio-2025",
 } as const
 
@@ -23,6 +30,19 @@ export function absoluteUrl(path = "/"): string {
   }
   const normalized = path.startsWith("/") ? path : `/${path}`
   return `${site.origin}${normalized}`
+}
+
+/** Homepage Person JSON-LD (no phone). */
+export function personJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    description: site.description,
+    url: site.origin,
+    email: site.email,
+    sameAs: [...site.sameAs],
+  }
 }
 
 /** Home / section OG image URL. */
@@ -89,6 +109,9 @@ export function articleMeta(input: ArticleMetaInput) {
       author: {
         "@type": "Person",
         name: site.author.name,
+        url: site.origin,
+        email: site.email,
+        sameAs: [...site.sameAs],
       },
     },
   }
