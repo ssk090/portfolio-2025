@@ -55,7 +55,7 @@ export function aboutMarkdown(): string {
     `${site.name} is a Senior Software Engineer at Altir in Hyderabad, India.`,
     "He builds production web and mobile products with React, TypeScript, Next.js, React Native, Angular, and AI-assisted workflows.",
     "",
-    "Before Altir he worked at Infosys as a Senior Systems Engineer on enterprise React and Angular apps.",
+    "Before Altir he worked at Infosys and ended as a Senior Systems Engineer on enterprise React and Angular apps.",
     "His focus is UI architecture, API integration, testing, and performance.",
     "",
     "This site is his personal portfolio at shivanandasai.xyz.",
