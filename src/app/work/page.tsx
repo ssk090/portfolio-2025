@@ -1,11 +1,12 @@
 import { PageHeader } from "@/components/page-header"
 import { SectionHeading } from "@/components/section-heading"
 import { SectionList } from "@/components/section-list"
+import { WorkCompany } from "@/components/work-company"
 import {
   certifications,
   educationItems,
   internshipItems,
-  workItems,
+  workCompanies,
 } from "@/lib/work-items"
 import { pageCanonical, pageOgImages } from "@/lib/site"
 import type { Metadata } from "next"
@@ -17,12 +18,15 @@ export default function WorkPage() {
         title="work"
         description="roles, internships, education, and certifications."
       />
-      <SectionList
-        title="work"
-        items={workItems}
-        showTitle={false}
-        showSectionBorder={false}
-      />
+      <section>
+        <div className="mb-16 animate-fade-in-up">
+          <div className="space-y-8">
+            {workCompanies.map((company) => (
+              <WorkCompany key={company.title} company={company} />
+            ))}
+          </div>
+        </div>
+      </section>
       <SectionList title="internships" items={internshipItems} />
       <SectionList title="education" items={educationItems} />
       <section className="border-t border-neutral-800 pt-10 mb-16 animate-fade-in-up">
