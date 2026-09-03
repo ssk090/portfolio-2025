@@ -10,7 +10,7 @@ export const site = {
     "Frontend / Full-Stack Engineer with 5+ years of experience building production web and mobile apps with React, TypeScript, Next.js, React Native, and AI-powered workflows.",
   ogDescription:
     "Frontend / Full-Stack Engineer specializing in React, Next.js, TypeScript, React Native, and AI-powered product workflows.",
-  email: "shivanandasai.38@gmail.com",
+  email: "shivanandasai.work@gmail.com",
   author: {
     name: "Shivananda Sai",
     twitter: "@imshiv6t9",
