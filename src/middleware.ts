@@ -67,8 +67,13 @@ export function middleware(req: NextRequest) {
     return notAcceptableResponse()
   }
 
+  // Next App Router overwrites middleware/next.config Vary on HTML
+  // (vercel/next.js#85999, #85852). Keep appendVaryAccept for when that
+  // lands, and disable Vercel CDN store so Accept: text/markdown cannot
+  // be poisoned by a cached HTML document meanwhile.
   const res = NextResponse.next()
   appendVaryAccept(res.headers)
+  res.headers.set("Vercel-CDN-Cache-Control", "no-store")
   return res
 }
 
