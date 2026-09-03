@@ -41,7 +41,8 @@ export function WorkCompany({ company }: WorkCompanyProps) {
         ) : null}
       </div>
 
-      <div className="mt-4 space-y-5">
+      {/* Nested roles share one card; keep spacing tight vs company-level space-y-8 */}
+      <div className="mt-3 space-y-3">
         {company.roles.map((role) => (
           <div key={`${role.title}-${role.period}`}>
             <h4 className="text-base font-medium text-white">{role.title}</h4>
@@ -61,7 +62,7 @@ export function WorkCompany({ company }: WorkCompanyProps) {
       </div>
 
       {company.description && company.description.length > 0 ? (
-        <ul className="list-disc list-inside space-y-3 text-gray-300 mt-5">
+        <ul className="list-disc list-inside space-y-3 text-gray-300 mt-4">
           {company.description.map((line) => (
             <li key={line}>{line}</li>
           ))}

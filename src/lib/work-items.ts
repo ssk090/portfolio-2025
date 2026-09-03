@@ -26,6 +26,7 @@ export const workCompanies: WorkCompany[] = [
         title: "senior software engineer",
         period: "oct 2025 - present",
         location: "hyderabad, india",
+        // Per-role description supported; leave empty until Shiv provides Senior bullets (do not invent).
       },
       {
         title: "software engineer",
