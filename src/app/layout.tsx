@@ -3,7 +3,12 @@ import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "../components/navbar"
 import { SiteFooter } from "../components/site-footer"
-import { ogHomeImage, site } from "@/lib/site"
+import {
+  ogHomeImage,
+  organizationJsonLd,
+  personJsonLd,
+  site,
+} from "@/lib/site"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -52,6 +57,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd()),
+          }}
+        />
+      </head>
       <body
         className={`${jetbrainsMono.variable} antialiased min-h-screen font-mono`}
       >

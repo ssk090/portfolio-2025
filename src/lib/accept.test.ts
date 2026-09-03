@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest"
-import { appendVaryAccept, preferredType } from "./accept"
+import {
+  appendVaryAccept,
+  markdownHeaders,
+  notAcceptableResponse,
+  preferredType,
+} from "./accept"
 
 describe("preferredType", () => {
   it("defaults to text/html when Accept is missing", () => {
@@ -41,10 +46,10 @@ describe("preferredType", () => {
 })
 
 describe("appendVaryAccept", () => {
-  it("sets Vary: Accept when missing", () => {
+  it("sets Vary: Accept, Accept-Encoding when missing", () => {
     const headers = new Headers()
     appendVaryAccept(headers)
-    expect(headers.get("Vary")).toBe("Accept")
+    expect(headers.get("Vary")).toBe("Accept, Accept-Encoding")
   })
 
   it("merges Accept into an existing Vary list", () => {
@@ -53,9 +58,31 @@ describe("appendVaryAccept", () => {
     expect(headers.get("Vary")).toBe("Accept-Encoding, Accept")
   })
 
-  it("does not duplicate Accept", () => {
+  it("merges Accept-Encoding when only Accept is present", () => {
     const headers = new Headers({ Vary: "Accept" })
     appendVaryAccept(headers)
-    expect(headers.get("Vary")).toBe("Accept")
+    expect(headers.get("Vary")).toBe("Accept, Accept-Encoding")
+  })
+
+  it("does not duplicate Accept or Accept-Encoding (case-insensitive)", () => {
+    const headers = new Headers({
+      Vary: "accept, ACCEPT-ENCODING, RSC",
+    })
+    appendVaryAccept(headers)
+    expect(headers.get("Vary")).toBe("accept, ACCEPT-ENCODING, RSC")
+  })
+})
+
+describe("markdownHeaders and 406", () => {
+  it("emits Vary: Accept, Accept-Encoding on markdown", () => {
+    const headers = markdownHeaders() as Record<string, string>
+    expect(headers.Vary).toBe("Accept, Accept-Encoding")
+    expect(headers["Content-Type"]).toContain("text/markdown")
+  })
+
+  it("emits Vary: Accept, Accept-Encoding on 406", async () => {
+    const res = notAcceptableResponse()
+    expect(res.status).toBe(406)
+    expect(res.headers.get("Vary")).toBe("Accept, Accept-Encoding")
   })
 })
