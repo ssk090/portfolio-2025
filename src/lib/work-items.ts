@@ -24,13 +24,7 @@ export const workCompanies: WorkCompany[] = [
     roles: [
       {
         title: "senior software engineer",
-        period: "oct 2025 - present",
-        location: "hyderabad, india",
-        // Per-role description supported; leave empty until Shiv provides Senior bullets (do not invent).
-      },
-      {
-        title: "software engineer",
-        period: "apr 2023 - oct 2025",
+        period: "apr 2023 - present",
         location: "hyderabad, india",
         description: [
           "developed and shipped production features for client-facing react and typescript applications, improving usability, performance, and reliability across core product flows",
@@ -52,18 +46,8 @@ export const workCompanies: WorkCompany[] = [
     roles: [
       {
         title: "senior systems engineer",
-        period: "sep 2022 - mar 2023",
+        period: "nov 2020 - mar 2023",
         location: "hyderabad, india",
-      },
-      {
-        title: "systems engineer",
-        period: "apr 2021 - aug 2022",
-        location: "hyderabad, india",
-      },
-      {
-        title: "systems engineer trainee",
-        period: "nov 2020 - mar 2021",
-        location: "mysore, india",
       },
     ],
   },

@@ -82,11 +82,17 @@ describe("markdown pages", () => {
     }
     expect(aboutMarkdown()).toContain("Altir")
     expect(aboutMarkdown()).toContain("Senior Software Engineer")
-    expect(aboutMarkdown()).toContain("Software Engineer at Altir")
+    expect(aboutMarkdown()).toContain("April 2023 to present")
+    expect(aboutMarkdown()).not.toMatch(
+      /(?<!Senior )Software Engineer at Altir/,
+    )
+    expect(aboutMarkdown()).not.toContain("October 2025")
     expect(aboutMarkdown()).toContain("Infosys")
     expect(aboutMarkdown()).toContain("Senior Systems Engineer")
-    expect(aboutMarkdown()).toContain("Systems Engineer Trainee")
-    expect(aboutMarkdown()).toContain("Mysore")
+    expect(aboutMarkdown()).toContain("November 2020 to March 2023")
+    expect(aboutMarkdown()).not.toContain("Systems Engineer Trainee")
+    expect(aboutMarkdown()).not.toContain("Mysore")
+    expect(aboutMarkdown()).not.toContain("three roles")
     expect(contactMarkdown()).toContain(site.email)
     expect(privacyMarkdown().toLowerCase()).toContain("vercel")
     expect(privacyMarkdown().toLowerCase()).toContain("cal.com")

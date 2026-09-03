@@ -52,11 +52,10 @@ export function aboutMarkdown(): string {
   return [
     `# About ${site.name}`,
     "",
-    `${site.name} is a Senior Software Engineer at Altir in Hyderabad, India (October 2025 to present).`,
-    "He was a Software Engineer at Altir from April 2023 to October 2025.",
+    `${site.name} is a Senior Software Engineer at Altir in Hyderabad, India (April 2023 to present).`,
     "He builds production web and mobile products with React, TypeScript, Next.js, React Native, Angular, and AI-assisted workflows.",
     "",
-    "Before Altir he worked at Infosys in three roles: Senior Systems Engineer (September 2022 to March 2023, Hyderabad), Systems Engineer (April 2021 to August 2022, Hyderabad), and Systems Engineer Trainee (November 2020 to March 2021, Mysore).",
+    "Before Altir he was a Senior Systems Engineer at Infosys in Hyderabad (November 2020 to March 2023).",
     "He built enterprise React and Angular apps. His focus is UI architecture, API integration, testing, and performance.",
     "",
     "This site is his personal portfolio at shivanandasai.xyz.",
