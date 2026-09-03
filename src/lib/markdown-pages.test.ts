@@ -93,6 +93,8 @@ describe("markdown pages", () => {
     expect(aboutMarkdown()).not.toContain("Systems Engineer Trainee")
     expect(aboutMarkdown()).not.toContain("Mysore")
     expect(aboutMarkdown()).not.toContain("three roles")
+    expect(aboutMarkdown().toLowerCase()).not.toContain("test coverage")
+    expect(aboutMarkdown()).toContain(site.email)
     expect(contactMarkdown()).toContain(site.email)
     expect(privacyMarkdown().toLowerCase()).toContain("vercel")
     expect(privacyMarkdown().toLowerCase()).toContain("cal.com")
