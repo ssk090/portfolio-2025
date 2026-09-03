@@ -1,7 +1,21 @@
 import { describe, expect, it } from "vitest"
-import { workCompanies } from "./work-items"
+import {
+  certifications,
+  educationItems,
+  internshipItems,
+  workCompanies,
+} from "./work-items"
+import { site } from "./site"
+
+const steDash = /\u2014|\u2013/
 
 describe("workCompanies", () => {
+  it("keeps public email on work@ and Person title Senior Software Engineer", () => {
+    expect(site.email).toBe("shivanandasai.work@gmail.com")
+    expect(site.email).not.toContain(".38@")
+    expect(site.jobTitle).toBe("Senior Software Engineer")
+  })
+
   it("models Altir as one company with latest designation only", () => {
     const altir = workCompanies.find(
       (company) => company.title === "altir india private limited",
@@ -17,6 +31,7 @@ describe("workCompanies", () => {
       location: "hyderabad, india",
     })
     expect(altir?.roles[0]?.description).toHaveLength(3)
+    expect(JSON.stringify(altir)).not.toMatch(steDash)
 
     for (const role of altir?.roles ?? []) {
       expect(role.title).not.toContain(";")
@@ -46,6 +61,17 @@ describe("workCompanies", () => {
       "improved dashboard usability by up to 60%",
     ])
 
+    const blob = infosys?.description?.join(" ").toLowerCase() ?? ""
+    expect(blob).toContain("60%")
+    expect(blob).toMatch(/react/)
+    expect(blob).toMatch(/angular/)
+    expect(blob).toMatch(/agile/)
+    expect(blob).toMatch(/api/)
+    expect(blob).not.toContain("65%")
+    expect(blob).not.toContain("85%")
+    expect(blob).not.toContain("spring boot")
+    expect(JSON.stringify(infosys)).not.toMatch(steDash)
+
     for (const role of infosys?.roles ?? []) {
       expect(role.title).not.toContain(";")
       expect(role.period).not.toContain(";")
@@ -58,5 +84,40 @@ describe("workCompanies", () => {
       "altir india private limited",
       "infosys limited",
     ])
+  })
+
+  it("includes AAI and BSNL internships", () => {
+    expect(internshipItems).toHaveLength(2)
+    expect(internshipItems[0]?.title).toContain("airports authority")
+    expect(internshipItems[0]?.period?.toLowerCase()).toContain("2019")
+    expect(internshipItems[0]?.location?.toLowerCase()).toContain("bhubaneswar")
+    expect(internshipItems[1]?.title).toContain("bharat sanchar")
+    expect(internshipItems[1]?.period?.toLowerCase()).toContain("2018")
+  })
+
+  it("includes education timeline through 10th", () => {
+    expect(educationItems.map((item) => item.title)).toEqual([
+      "siksha o anusandhan university",
+      "shivam junior college",
+      "kendriya vidyalaya",
+    ])
+    expect(educationItems[0]?.role.toLowerCase()).toContain("btech")
+    expect(educationItems[0]?.period).toBe("2016 - 2020")
+    expect(educationItems[1]?.role).toBe("12th")
+    expect(educationItems[2]?.role).toBe("10th")
+  })
+
+  it("lists lowercase certification badges", () => {
+    expect([...certifications]).toEqual([
+      "python quick start",
+      "aws educate intro to gen ai",
+      "career edge - knockdown the lockdown",
+      "full stack web development",
+      "automate your workflows with generative ai",
+    ])
+    for (const cert of certifications) {
+      expect(cert).toBe(cert.toLowerCase())
+      expect(cert).not.toMatch(steDash)
+    }
   })
 })

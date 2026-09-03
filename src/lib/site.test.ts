@@ -10,6 +10,11 @@ import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 
 describe("site identity", () => {
+  it("keeps the public work@ email (never .38)", () => {
+    expect(site.email).toBe("shivanandasai.work@gmail.com")
+    expect(site.email).not.toMatch(/\.38@/)
+  })
+
   it("uses the canonical custom domain origin", () => {
     expect(site.origin).toBe("https://shivanandasai.xyz")
     expect(absoluteUrl("/docs")).toBe("https://shivanandasai.xyz/docs")
